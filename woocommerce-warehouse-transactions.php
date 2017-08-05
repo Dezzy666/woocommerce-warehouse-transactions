@@ -30,7 +30,9 @@ function woocommerce_warehouse_transactions_install () {
         orderId mediumint(9) NULL,
         notes text DEFAULT '' NOT NULL,
         PRIMARY KEY  (id)
-    ) $charset_collate;";
+    )
+    ENGINE=InnoDB
+    $charset_collate;";
 
     require_once(ABSPATH . 'wp-admin/includes/upgrade.php');
     dbDelta($sqlLogTable);
