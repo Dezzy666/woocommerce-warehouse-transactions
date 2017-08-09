@@ -29,6 +29,7 @@ function woocommerce_warehouse_transactions_install () {
         difference int NOT NULL,
         orderId mediumint(9) NULL,
         notes text DEFAULT '' NOT NULL,
+        insertedAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
         PRIMARY KEY  (id)
     )
     ENGINE=InnoDB
