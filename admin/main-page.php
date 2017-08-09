@@ -15,7 +15,7 @@ if(isset($_POST['product-quantity']) && isset($_POST['product-id'])) {
 <h1><?php _e('Warehouse movement log', 'woocommerce-warehouse-transactions'); ?></h1>
 <div class="insertion">
     <form method="post">
-        <h2><?php _e('Insert change ', 'woocommerce-warehouse-transactions'); ?></h2>
+        <h2><?php _e('Insert change', 'woocommerce-warehouse-transactions'); ?></h2>
         <select class="product-select" id="product-id" name="product-id">
             <?php
                 foreach ($products as $product) {
