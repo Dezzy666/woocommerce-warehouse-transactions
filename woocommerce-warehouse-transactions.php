@@ -55,3 +55,13 @@ function wwt_admin_scripts() {
 }
 add_action( 'admin_enqueue_scripts', 'wwt_admin_scripts' );
 
+/******************************************************************************/
+/*              RIGHTS                                                        */
+/******************************************************************************/
+
+function wwt_add_capability_to_admin() {
+    $role_object = wp_roles()->get_role('administrator');
+    $role_object->add_cap('wwt_rights');
+}
+add_action('admin_init', 'wwt_add_capability_to_admin');
+
