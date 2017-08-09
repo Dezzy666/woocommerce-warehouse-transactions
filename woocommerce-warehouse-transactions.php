@@ -40,3 +40,18 @@ function woocommerce_warehouse_transactions_install () {
     add_option('wwt_database_version', $wwt_database_version);
 }
 register_activation_hook(__FILE__, 'woocommerce_warehouse_transactions_install');
+
+/******************************************************************************/
+/*              EXTERNAL LIBS                                                 */
+/******************************************************************************/
+
+function wwt_admin_scripts() {
+    wp_enqueue_script( 'jquery' );
+    wp_enqueue_script('jquery-ui', plugin_dir_url( __FILE__ ) . '/libs/jquery-ui/jquery-ui.min.js', array('jquery'), '1.11');
+    wp_enqueue_script( 'select-2', plugin_dir_url( __FILE__ ) . '/libs/select2/select2.min.js', array('jquery', 'jquery-ui'), '4.0.3', true );
+
+    wp_enqueue_style( 'jquery-ui-style', plugin_dir_url( __FILE__ ) . '/libs/jquery-ui/jquery-ui.min.css');
+    wp_enqueue_style( 'select-2-style', plugin_dir_url( __FILE__ ) . '/libs/select2/select2.min.css');
+}
+add_action( 'admin_enqueue_scripts', 'wwt_admin_scripts' );
+
