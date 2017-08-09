@@ -65,3 +65,8 @@ function wwt_add_capability_to_admin() {
 }
 add_action('admin_init', 'wwt_add_capability_to_admin');
 
+/******************************************************************************/
+/*              INCLUDES                                                      */
+/******************************************************************************/
+
+include 'admin/admin-menu-setup.php';
