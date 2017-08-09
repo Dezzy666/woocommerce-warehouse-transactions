@@ -47,4 +47,13 @@ class WWT_LogEntity {
             )
         );
     }
+
+    public static function get_last($number = 20) {
+        global $wpdb;
+        $tableName = $wpdb->prefix . LOG_TABLE;
+        $wpdb->show_errors();
+
+        $result = $wpdb->get_results( "SELECT * FROM $tableName ORDER BY id DESC LIMIT $number", OBJECT );
+        return $result;
+    }
 }
