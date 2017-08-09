@@ -11,6 +11,16 @@ if(isset($_POST['product-quantity']) && isset($_POST['product-id'])) {
     $newLog->save();
 }
 
+function wwt_get_user_name($userId) {
+    $user = get_user_by('id', $userId);
+    return $user->first_name . ' ' . $user->last_name;
+}
+
+function wwt_get_product_name($productId) {
+    $product = wc_get_product($productId);
+    return $product->get_title();
+}
+
 ?>
 <h1><?php _e('Warehouse movement log', 'woocommerce-warehouse-transactions'); ?></h1>
 <div class="insertion">
@@ -30,6 +40,28 @@ if(isset($_POST['product-quantity']) && isset($_POST['product-id'])) {
         </div>
         <?php submit_button(__('Insert', 'woocommerce-warehouse-transactions')); ?>
     </form>
+</div>
+
+<div>
+    <h2><?php _e('Last changes', 'woocommerce-warehouse-transactions'); ?> </h2>
+    <table class="recent">
+        <tr>
+            <th><?php _e('Product name', 'woocommerce-warehouse-transactions'); ?></th>
+            <th><?php _e('User name', 'woocommerce-warehouse-transactions'); ?></th>
+            <th><?php _e('Difference', 'woocommerce-warehouse-transactions'); ?></th>
+            <th><?php _e('Note', 'woocommerce-warehouse-transactions'); ?></th>
+        </tr>
+        <?php
+            $logNodes = WWT_LogEntity::get_last();
+            foreach ($logNodes as $logNode) {
+                echo '<tr><td>', wwt_get_product_name($logNode->productId),
+                    '</td><td>', wwt_get_user_name($logNode->userId),
+                    '</td><td>', $logNode->difference,
+                    '</td><td>', $logNode->notes,
+                    '</td></tr>';
+            }
+        ?>
+    </table>
 </div>
 
 <script type="text/javascript">
