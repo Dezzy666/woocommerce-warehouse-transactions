@@ -11,9 +11,9 @@
  * Domain Path: /languages/
  */
 
- $wwt_database_version = '1.0';
+$wwt_database_version = '1.0';
 
- define('LOG_TABLE', 'woocommerce_warehouse_transactions_log_table');
+define('LOG_TABLE', 'woocommerce_warehouse_transactions_log_table');
 
 function woocommerce_warehouse_transactions_install () {
     global $wpdb;
