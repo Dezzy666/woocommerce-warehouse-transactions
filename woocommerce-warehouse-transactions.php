@@ -24,7 +24,7 @@ function woocommerce_warehouse_transactions_install () {
 
     $sqlLogTable = "CREATE TABLE $logTable (
         id mediumint(9) NOT NULL AUTO_INCREMENT,
-        userId mediumint(9) NOT NULL,
+        userId mediumint(9) NULL,
         productId mediumint(9) NOT NULL,
         difference int NOT NULL,
         orderId mediumint(9) NULL,
