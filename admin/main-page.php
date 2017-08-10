@@ -2,7 +2,8 @@
 
 include_once('/../objects/wwt-log-entity.php');
 
-$args     = array( 'post_type' => 'product' );
+$args     = array( 'post_type'   => 'product',
+                   'numberposts' => -1);
 $products = get_posts( $args );
 
 if(isset($_POST['product-quantity']) && isset($_POST['product-id'])) {
