@@ -12,9 +12,17 @@ if(isset($_POST['product-quantity']) && isset($_POST['product-id'])) {
     $product = wc_get_product($_POST['product-id']);
 
     if ($product && is_numeric($_POST['product-quantity'])) {
-        wc_update_product_stock($product, $_POST['product-quantity'], 'increase');
+        wwt_update_product_stock($product, $_POST['product-quantity']);
         $newLog = new WWT_LogEntity($userId, $_POST['product-id'], $_POST['product-quantity'], $_POST['note']);
         $newLog->save();
+    }
+}
+
+function wwt_update_product_stock($product, $quantity) {
+    if (wwt_get_woocommerce_version() >= 3) {
+        wc_update_product_stock($product, $quantity, 'increase');
+    } else {
+        wc_update_product_stock($product, $quantity + wc_get_product_stock($product));
     }
 }
 
