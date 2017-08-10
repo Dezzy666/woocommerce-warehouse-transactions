@@ -49,7 +49,7 @@ function wwt_get_product_name($productId) {
     </form>
 </div>
 
-<div>
+<div class="insertion">
     <h2><?php _e('Last changes', 'woocommerce-warehouse-transactions'); ?> </h2>
     <table class="recent">
         <tr>
@@ -84,9 +84,16 @@ function wwt_get_product_name($productId) {
         padding: 5px 20px 20px 20px;
         border: 3px solid black;
         border-radius: 10px;
+        margin-top: 10px;
+        margin-bottom: 5px;
     }
 
     .product-select {
         width: 350px;
+    }
+
+    .recent th, .recent td {
+        width: 150px;
+        text-align: center;
     }
 </style>
