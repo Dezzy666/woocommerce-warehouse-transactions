@@ -42,6 +42,11 @@ function woocommerce_warehouse_transactions_install () {
 }
 register_activation_hook(__FILE__, 'woocommerce_warehouse_transactions_install');
 
+function wwt_get_woocommerce_version() {
+    $returnValue = intval(substr(WOOCOMMERCE_VERSION, 0, 1));
+    return $returnValue;
+}
+
 /******************************************************************************/
 /*              EXTERNAL LIBS                                                 */
 /******************************************************************************/
