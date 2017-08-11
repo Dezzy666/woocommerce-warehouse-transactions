@@ -63,6 +63,12 @@ function wwt_admin_scripts() {
 }
 add_action( 'admin_enqueue_scripts', 'wwt_admin_scripts' );
 
+
+function wwt_localizationsample_init() {
+    load_plugin_textdomain('woocommerce-warehouse-transactions', false, dirname( plugin_basename( __FILE__ ) ) . '/languages/');
+}
+add_action('init', 'wwt_localizationsample_init');
+
 /******************************************************************************/
 /*              RIGHTS                                                        */
 /******************************************************************************/

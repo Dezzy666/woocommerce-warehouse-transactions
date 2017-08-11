@@ -1,0 +1,136 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Woocommerce Warehouse Transactions v0.0.1\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: \n"
+"PO-Revision-Date: 2017-08-11 14:10:21+0000\n"
+"Last-Translator: dezzy <dezzy@seznam.cz>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=3; plural=n%100/10==1 ? 2 : n%10==1 ? 0 : (n+9)%10>3 ? 2 : 1;\n"
+"X-Generator: CSL v1.x\n"
+"X-Poedit-Language: Czech\n"
+"X-Poedit-Country: CZECH REPUBLIC\n"
+"X-Poedit-SourceCharset: utf-8\n"
+"X-Poedit-KeywordsList: __;_e;__ngettext:1,2;_n:1,2;__ngettext_noop:1,2;_n_noop:1,2;_c,_nc:4c,1,2;_x:1,2c;_ex:1,2c;_nx:4c,1,2;_nx_noop:4c,1,2;\n"
+"X-Poedit-Basepath: ../\n"
+"X-Poedit-Bookmarks: \n"
+"X-Poedit-SearchPath-0: .\n"
+"X-Textdomain-Support: yes"
+
+#: admin/admin-menu-setup.php:20
+#@ woocommerce-warehouse-transactions
+msgid "WWT"
+msgstr ""
+
+#: admin/admin-menu-setup.php:21
+#@ woocommerce-warehouse-transactions
+msgid "Warehouse"
+msgstr "Sklad"
+
+#: admin/main-page.php:30
+#@ woocommerce-warehouse-transactions
+msgid "Order change"
+msgstr "Změna objednávkou"
+
+#: admin/main-page.php:42
+#@ woocommerce-warehouse-transactions
+msgid "Warehouse movement log"
+msgstr "Změny ve skladu"
+
+#: admin/main-page.php:45
+#@ woocommerce-warehouse-transactions
+msgid "Insert change"
+msgstr "Vložit změnu"
+
+#: admin/main-page.php:53
+#@ woocommerce-warehouse-transactions
+msgid "Quantity"
+msgstr "Množství"
+
+#: admin/main-page.php:54
+#: admin/main-page.php:69
+#@ woocommerce-warehouse-transactions
+msgid "Note"
+msgstr "Poznámka"
+
+#: admin/main-page.php:56
+#@ woocommerce-warehouse-transactions
+msgid "+ value means added, - value means taken"
+msgstr "Kladné (+) hodnoty znamenají přírůstek ve skladu, záporné (-) znamenají úbytek"
+
+#: admin/main-page.php:58
+#@ woocommerce-warehouse-transactions
+msgid "Insert"
+msgstr "Vložit"
+
+#: admin/main-page.php:63
+#@ woocommerce-warehouse-transactions
+msgid "Last changes"
+msgstr "Nedávné změny"
+
+#: admin/main-page.php:66
+#@ woocommerce-warehouse-transactions
+msgid "Product name"
+msgstr "Název produktu"
+
+#: admin/main-page.php:67
+#@ woocommerce-warehouse-transactions
+msgid "User name"
+msgstr "Uživatel"
+
+#: admin/main-page.php:68
+#@ woocommerce-warehouse-transactions
+msgid "Difference"
+msgstr "Změna"
+
+#. translators: plugin header field 'Name'
+#: woocommerce-warehouse-transactions.php:0
+#@ woocommerce-warehouse-transactions
+msgid "Woocommerce Warehouse Transactions"
+msgstr "Woocommerce Skladové Změny"
+
+#. translators: plugin header field 'Description'
+#: woocommerce-warehouse-transactions.php:0
+#@ woocommerce-warehouse-transactions
+msgid "Extension for woocommerce which keeps the track of warehouse changes."
+msgstr "Rozšíření pro woocommerce které vám umožní držet si pořádek ve změnách ve skladu."
+
+#. translators: plugin header field 'Author'
+#: woocommerce-warehouse-transactions.php:0
+#@ woocommerce-warehouse-transactions
+msgid "Jan Herzan"
+msgstr ""
+
+#. translators: plugin header field 'AuthorURI'
+#: woocommerce-warehouse-transactions.php:0
+#@ woocommerce-warehouse-transactions
+msgid "http://jan.herzan.com"
+msgstr ""
+
+#. translators: plugin header field 'Version'
+#: woocommerce-warehouse-transactions.php:0
+#@ woocommerce-warehouse-transactions
+msgid "0.0.1"
+msgstr ""
+
+#: woocommerce-warehouse-transactions.php:100
+#, php-format
+#@ woocommerce-warehouse-transactions
+msgid "Amout reduced because of order %d"
+msgstr "Zboží odebráno jako následek objednávky %d"
+
+#: woocommerce-warehouse-transactions.php:118
+#, php-format
+#@ woocommerce-warehouse-transactions
+msgid "Amout restored because of order %d was canceled"
+msgstr "Zboží vráceno, protože objednávka %d byla zrušena."
+
+#: woocommerce-warehouse-transactions.php:125
+#, php-format
+#@ woocommerce-warehouse-transactions
+msgid "Amout changed because of order %d was changed"
+msgstr "Změna v objednávca %d"
+
