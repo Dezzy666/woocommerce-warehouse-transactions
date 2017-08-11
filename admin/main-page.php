@@ -63,18 +63,18 @@ function wwt_get_product_name($productId) {
     <h2><?php _e('Last changes', 'woocommerce-warehouse-transactions'); ?> </h2>
     <table class="recent">
         <tr>
-            <th><?php _e('Product name', 'woocommerce-warehouse-transactions'); ?></th>
-            <th><?php _e('User name', 'woocommerce-warehouse-transactions'); ?></th>
-            <th><?php _e('Difference', 'woocommerce-warehouse-transactions'); ?></th>
-            <th><?php _e('Note', 'woocommerce-warehouse-transactions'); ?></th>
+            <th class="product-name"><?php _e('Product name', 'woocommerce-warehouse-transactions'); ?></th>
+            <th class="user-name"><?php _e('User name', 'woocommerce-warehouse-transactions'); ?></th>
+            <th class="difference"><?php _e('Difference', 'woocommerce-warehouse-transactions'); ?></th>
+            <th class="note"><?php _e('Note', 'woocommerce-warehouse-transactions'); ?></th>
         </tr>
         <?php
             $logNodes = WWT_LogEntity::get_last();
             foreach ($logNodes as $logNode) {
-                echo '<tr><td>', wwt_get_product_name($logNode->productId),
-                    '</td><td>', wwt_get_user_name($logNode->userId),
-                    '</td><td>', $logNode->difference,
-                    '</td><td>', $logNode->notes,
+                echo '<tr><td class="product-name">', wwt_get_product_name($logNode->productId),
+                    '</td><td class="user-name">', wwt_get_user_name($logNode->userId),
+                    '</td><td class="difference">', $logNode->difference,
+                    '</td><td class="note">', $logNode->notes,
                     '</td></tr>';
             }
         ?>
@@ -102,8 +102,36 @@ function wwt_get_product_name($productId) {
         width: 350px;
     }
 
-    .recent th, .recent td {
+    .recent .product-name {
+        width: 250px;
+        text-align: left;
+    }
+
+
+    .recent .user-name {
         width: 150px;
-        text-align: center;
+        text-align: left;
+    }
+
+    .recent .difference {
+        text-align: left;
+    }
+
+    .recent .note {
+        width: 450px;
+        text-align: left;
+    }
+
+    .recent {
+        border: 1px solid black;
+        border-collapse: collapse;
+    }
+
+    .recent tr:nth-child(2n) {
+        background-color: lightgray;
+    }
+
+    span.select2-container {
+        display: inline-block !important;
     }
 </style>
