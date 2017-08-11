@@ -73,6 +73,14 @@ function wwt_add_capability_to_admin() {
 }
 add_action('admin_init', 'wwt_add_capability_to_admin');
 
+function wwt_remove_stock_tab($tabs) {
+    if (!current_user_can('manage_options')) {
+        unset($tabs['inventory']);
+    }
+    return $tabs;
+}
+add_filter('woocommerce_product_data_tabs', 'wwt_remove_stock_tab');
+
 /******************************************************************************/
 /*              ORDER MANAGEMENT                                              */
 /******************************************************************************/
