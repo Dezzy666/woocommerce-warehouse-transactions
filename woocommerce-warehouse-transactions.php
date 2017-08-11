@@ -11,6 +11,8 @@
  * Domain Path: /languages/
  */
 
+include_once('/objects/wwt-log-entity.php');
+
 $wwt_database_version = '1.0';
 
 define('LOG_TABLE', 'woocommerce_warehouse_transactions_log_table');
@@ -70,6 +72,52 @@ function wwt_add_capability_to_admin() {
     $role_object->add_cap('wwt_rights');
 }
 add_action('admin_init', 'wwt_add_capability_to_admin');
+
+/******************************************************************************/
+/*              ORDER MANAGEMENT                                              */
+/******************************************************************************/
+
+function wwt_create_log_reduce($orderOrId) {
+    if (wwt_get_woocommerce_version() >= 3) {
+        $order = new WC_Order($orderOrId);
+        $orderId = $orderOrId;
+    } else {
+        $order = $orderOrId;
+        $orderId = $orderOrId->id;
+    }
+
+    $itemList = $order->get_items();
+
+    foreach ($itemList as $item) {
+        $newLog = new WWT_LogEntity(NULL, $item['product_id'], -$item['qty'], sprintf(__('Amout reduced because of order %d', 'woocommerce-warehouse-transactions'), $orderId), $orderId);
+        $newLog->save();
+    }
+}
+add_action('woocommerce_reduce_order_stock', 'wwt_create_log_reduce');
+
+function wwt_create_log_restore($orderOrId) {
+    if (wwt_get_woocommerce_version() >= 3) {
+        $order = new WC_Order($orderOrId);
+        $orderId = $orderOrId;
+    } else {
+        $order = $orderOrId;
+        $orderId = $orderOrId->id;
+    }
+
+    $itemList = $order->get_items();
+
+    foreach ($itemList as $item) {
+        $newLog = new WWT_LogEntity(NULL, $item['product_id'], -$item['qty'], sprintf(__('Amout restored because of order %d was canceled', 'woocommerce-warehouse-transactions'), $orderId), $orderId);
+        $newLog->save();
+    }
+}
+add_action('woocommerce_restore_order_stock', 'wwt_create_log_restore');
+
+function wwt_create_log_restock($productId, $oldStock, $newStock, $order, $product) {
+    $newLog = new WWT_LogEntity(NULL, $productId, $oldStock - $newStock, sprintf(__('Amout changed because of order %d was changed', 'woocommerce-warehouse-transactions'), $order->id), $order->id);
+    $newLog->save();
+}
+add_action('woocommerce_restock_refunded_item', 'wwt_create_log_restock', 10, 5);
 
 /******************************************************************************/
 /*              INCLUDES                                                      */
