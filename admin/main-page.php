@@ -27,6 +27,8 @@ function wwt_update_product_stock($product, $quantity) {
 }
 
 function wwt_get_user_name($userId) {
+    if ($userId == NULL) return __('Order change', 'woocommerce-warehouse-transactions');
+
     $user = get_user_by('id', $userId);
     return $user->first_name . ' ' . $user->last_name;
 }
