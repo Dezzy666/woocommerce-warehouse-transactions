@@ -3,7 +3,9 @@
 include_once('/../objects/wwt-log-entity.php');
 
 $args     = array( 'post_type'   => 'product',
-                   'numberposts' => -1);
+                   'numberposts' => -1,
+                   'orderby'     => 'title',
+                   'order'       => 'ASC');
 $products = get_posts( $args );
 
 if(isset($_POST['product-quantity']) && isset($_POST['product-id'])) {
@@ -46,7 +48,10 @@ function wwt_get_product_name($productId) {
         <select class="product-select" id="product-id" name="product-id">
             <?php
                 foreach ($products as $product) {
-                    echo '<option value="', $product->ID,'"">', $product->post_title,'</option>';
+                    $wcProduct = wc_get_product($product->ID);
+                    if ($wcProduct->get_manage_stock()) {
+                        echo '<option value="', $product->ID,'"">', apply_filters('wwt_main_page_dropdown_option', $product->ID . ' ' . $product->post_title, $wcProduct),'</option>';
+                    }
                 }
             ?>
         </select>
