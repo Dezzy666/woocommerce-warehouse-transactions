@@ -76,7 +76,7 @@ function wwt_get_product_name($productId) {
         <?php
             $logNodes = WWT_LogEntity::get_last();
             foreach ($logNodes as $logNode) {
-                echo '<tr><td class="product-name">', wwt_get_product_name($logNode->productId),
+                echo '<tr><td class="product-name">', apply_filters('wwt_main_page_product_name_column', wwt_get_product_name($logNode->productId), wc_get_product($logNode->productId)),
                     '</td><td class="user-name">', wwt_get_user_name($logNode->userId),
                     '</td><td class="difference">', $logNode->difference,
                     '</td><td class="note">', $logNode->notes,
