@@ -6,6 +6,7 @@
  * Author: Jan Herzan
  * Author URI: http://jan.herzan.com
  * Requires at least: 4.4
+ * WC requires at least: 3.0
  *
  * Text Domain: woocommerce-warehouse-transactions
  * Domain Path: /languages/
@@ -92,13 +93,8 @@ add_filter('woocommerce_product_data_tabs', 'wwt_remove_stock_tab');
 /******************************************************************************/
 
 function wwt_create_log_reduce($orderOrId) {
-    if (wwt_get_woocommerce_version() >= 3) {
-        $order = new WC_Order($orderOrId);
-        $orderId = $orderOrId;
-    } else {
-        $order = $orderOrId;
-        $orderId = $orderOrId->id;
-    }
+    $order = new WC_Order($orderOrId);
+    $orderId = $order->id;
 
     $itemList = $order->get_items();
 
@@ -110,13 +106,8 @@ function wwt_create_log_reduce($orderOrId) {
 add_action('woocommerce_reduce_order_stock', 'wwt_create_log_reduce');
 
 function wwt_create_log_restore($orderOrId) {
-    if (wwt_get_woocommerce_version() >= 3) {
-        $order = new WC_Order($orderOrId);
-        $orderId = $orderOrId;
-    } else {
-        $order = $orderOrId;
-        $orderId = $orderOrId->id;
-    }
+    $order = new WC_Order($orderOrId);
+    $orderId = $order->id;
 
     $itemList = $order->get_items();
 
