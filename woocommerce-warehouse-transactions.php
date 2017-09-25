@@ -112,7 +112,7 @@ function wwt_create_log_restore($orderOrId) {
     $itemList = $order->get_items();
 
     foreach ($itemList as $item) {
-        $newLog = new WWT_LogEntity(NULL, $item['product_id'], -$item['qty'], sprintf(__('Amout restored because of order %d was canceled', 'woocommerce-warehouse-transactions'), $orderId), $orderId);
+        $newLog = new WWT_LogEntity(NULL, $item['product_id'], $item['qty'], sprintf(__('Amout restored because of order %d was canceled', 'woocommerce-warehouse-transactions'), $orderId), $orderId);
         $newLog->save();
     }
 }
