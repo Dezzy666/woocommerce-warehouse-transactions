@@ -1,6 +1,6 @@
 <?php
 
-include_once('/../objects/wwt-log-entity.php');
+include_once(__DIR__ . '/../objects/wwt-log-entity.php');
 
 $args     = array( 'post_type'   => 'product',
                    'numberposts' => -1,

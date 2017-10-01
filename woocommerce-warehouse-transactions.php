@@ -12,7 +12,7 @@
  * Domain Path: /languages/
  */
 
-include_once('/objects/wwt-log-entity.php');
+include_once(__DIR__ . '/objects/wwt-log-entity.php');
 
 $wwt_database_version = '1.0';
 
