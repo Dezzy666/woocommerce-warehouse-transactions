@@ -56,4 +56,14 @@ class WWT_LogEntity {
         $result = $wpdb->get_results( "SELECT * FROM $tableName ORDER BY id DESC LIMIT $number", OBJECT );
         return $result;
     }
+
+    public static function get_log_for_month($startMonth, $startYear, $endMonth, $endYear) {
+        global $wpdb;
+        $tableName = $wpdb->prefix . LOG_TABLE;
+
+        $sql = "SELECT * FROM $tableName WHERE insertedAt >= '$startYear-$startMonth-01 00:00:00' AND insertedAt < '$endYear-$endMonth-01 00:00:00'";
+
+        $result = $wpdb->get_results( $sql, OBJECT );
+        return $result;
+    }
 }

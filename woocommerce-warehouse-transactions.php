@@ -89,6 +89,27 @@ function wwt_remove_stock_tab($tabs) {
 add_filter('woocommerce_product_data_tabs', 'wwt_remove_stock_tab');
 
 /******************************************************************************/
+/*              CRON TASK INSERTION                                           */
+/******************************************************************************/
+
+function wwt_register_cron() {
+    wp_clear_scheduled_hook('wwt_send_email_with_log');
+    $firstDayNextMonth = date('Y-m-d 03:00:00', strtotime('first day of next month'));
+    wp_schedule_event(strtotime($firstDayNextMonth), 'monthly', 'wwt_send_email_with_log');
+
+    return $firstDayNextMonth;
+}
+register_activation_hook(__FILE__, 'wwt_register_cron');
+
+function wwt_insert_cron() {
+    $date = wwt_register_cron();
+    echo sprintf(__('Cron for WWT successfully inserted. Next execution day is %s', 'woocommerce-warehouse-transactions'), $date);
+
+    wp_die(); // this is required to terminate immediately and return a proper response
+}
+add_action( 'wp_ajax_wwt_insert_cron', 'wwt_insert_cron' );
+
+/******************************************************************************/
 /*              ORDER MANAGEMENT                                              */
 /******************************************************************************/
 
@@ -141,3 +162,4 @@ add_action('woocommerce_restock_refunded_item', 'wwt_create_log_restock', 10, 5)
 /******************************************************************************/
 
 include 'admin/admin-menu-setup.php';
+include 'cron/email-report.php';
