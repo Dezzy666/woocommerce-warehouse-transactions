@@ -19,9 +19,15 @@ if ( ! defined( 'ABSPATH' ) ) {
 function wwt_setup_execution_menu() {
     add_menu_page(__('WWT', 'woocommerce-warehouse-transactions'), __('WWT', 'woocommerce-warehouse-transactions'), 'wwt_rights', 'wwt_executions', 'wwt_view_execution_page', plugin_dir_url( __FILE__ ) . '../images/main-icon.png', 82 );
     add_submenu_page( 'wwt_menu', __('Warehouse', 'woocommerce-warehouse-transactions'), __('Warehouse', 'woocommerce-warehouse-transactions'), 'wwt_rights', 'wwt_view_execution_page');
+
+    add_options_page( __('WWT settings', 'woocommerce-warehouse-transactions'), __('WWT settings', 'woocommerce-warehouse-transactions'), 'manage_options', 'woocommerce-warehouse-transactions', 'wwt_view_settings_page');
 }
 add_action( 'admin_menu', 'wwt_setup_execution_menu' );
 
 function wwt_view_execution_page($param) {
     include 'main-page.php';
+}
+
+function wwt_view_settings_page($param) {
+    include 'settings.php';
 }
