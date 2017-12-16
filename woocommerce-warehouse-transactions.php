@@ -14,12 +14,12 @@
 
 include_once(__DIR__ . '/objects/wwt-log-entity.php');
 
-$wwt_database_version = '1.0';
 
 define('LOG_TABLE', 'woocommerce_warehouse_transactions_log_table');
 
 function woocommerce_warehouse_transactions_install () {
     global $wpdb;
+    $wwt_database_version = '1.0';
 
     $logTable = $wpdb->prefix . LOG_TABLE;
 
