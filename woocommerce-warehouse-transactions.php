@@ -110,6 +110,30 @@ function wwt_insert_cron() {
 add_action( 'wp_ajax_wwt_insert_cron', 'wwt_insert_cron' );
 
 /******************************************************************************/
+/*              SETTINGS PROPERTIES                                           */
+/******************************************************************************/
+
+define('WWT_SETTING_GROUP', 'wwt_setting_group');
+define('WWT_REPORT_EMAIL', 'wwt_report_email');
+
+function wwt_override_register_setting($settingName) {
+	register_setting( WWT_SETTING_GROUP, $settingName);
+	add_filter('pre_update_option_'. $settingName, 'wwt_update_option', 10, 2);
+}
+
+function wwt_update_option($newValue, $oldValue) {
+	if ($newValue == null) {
+		return $oldValue;
+	}
+	return $newValue;
+}
+
+function wwt_register_settings() {
+    wwt_override_register_setting(WWT_REPORT_EMAIL);
+}
+add_action('admin_init', 'wwt_register_settings');
+
+/******************************************************************************/
 /*              ORDER MANAGEMENT                                              */
 /******************************************************************************/
 

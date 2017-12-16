@@ -2,9 +2,29 @@
 
 print_button_component(__("Insert WWT CRON", 'woocommerce-warehouse-transactions'), 'insert-wwt-cron');
 
+?>
+<form class="eet-settings" action="options.php" method="post">
+    <?php settings_fields( WWT_SETTING_GROUP ); ?>
+    <?php do_settings_sections( WWT_SETTING_GROUP ); ?>
+
+    <?php
+    print_input_component(__("Email the report is send to"), WWT_REPORT_EMAIL);
+    ?>
+
+    <?php submit_button(); ?>
+</form>
+
+<?php
 function print_button_component($mainSign, $key) {
     echo '<div>';
     echo '<input type="button" value="', $mainSign ,'" id="', $key, '">';
+    echo '</div>';
+}
+
+function print_input_component($mainSign, $key) {
+    $option = get_option($key);
+    echo '<div><h2>', $mainSign, '</h2>';
+    echo '<input type="text" id="', $key,'" name="', $key,'" value="',$option,'">';
     echo '</div>';
 }
 
