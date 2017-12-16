@@ -30,6 +30,7 @@ function wwt_send_email_with_log_execution() {
         fwrite($fileToken, '"' . $userName . '",');
         fwrite($fileToken, '"' . $logNode->difference . '",');
         fwrite($fileToken, '"' . $logNode->notes . '",');
+        fwrite($fileToken, '"' . $logNode->insertedAt . '",');
         fwrite($fileToken, "\n");
     }
     fclose( $fileToken );
