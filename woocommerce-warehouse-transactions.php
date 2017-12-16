@@ -92,6 +92,18 @@ add_filter('woocommerce_product_data_tabs', 'wwt_remove_stock_tab');
 /*              ORDER MANAGEMENT                                              */
 /******************************************************************************/
 
+function wwt_get_user_name($userId) {
+    if ($userId == NULL) return __('Order change', 'woocommerce-warehouse-transactions');
+
+    $user = get_user_by('id', $userId);
+    return $user->first_name . ' ' . $user->last_name;
+}
+
+function wwt_get_product_name($productId) {
+    $product = wc_get_product($productId);
+    return $product->get_title();
+}
+
 function wwt_create_log_reduce($orderOrId) {
     $order = new WC_Order($orderOrId);
     $orderId = $order->id;

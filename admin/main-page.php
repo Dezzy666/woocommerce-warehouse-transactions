@@ -28,18 +28,6 @@ function wwt_update_product_stock($product, $quantity) {
     }
 }
 
-function wwt_get_user_name($userId) {
-    if ($userId == NULL) return __('Order change', 'woocommerce-warehouse-transactions');
-
-    $user = get_user_by('id', $userId);
-    return $user->first_name . ' ' . $user->last_name;
-}
-
-function wwt_get_product_name($productId) {
-    $product = wc_get_product($productId);
-    return $product->get_title();
-}
-
 ?>
 <h1><?php _e('Warehouse movement log', 'woocommerce-warehouse-transactions'); ?></h1>
 <div class="insertion">
