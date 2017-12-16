@@ -35,6 +35,15 @@ function wwt_send_email_with_log_execution() {
     }
     fclose( $fileToken );
 
+    $to = get_option(WWT_REPORT_EMAIL);
 
+    if (!isset($to)) return;
+
+    $subject = __('WWT Monthly report', 'woocommerce-warehouse-transactions');
+    $body = __('Monthly report containing changes in the warehouse.', 'woocommerce-warehouse-transactions');
+    $headers = array('Content-Type: text/plain; charset=UTF-8');
+    $headers[] = 'From: WWT export <wwt@medinatur.cz>';
+
+    wp_mail($to, $subject, $body, $headers, $attachementFilePath);
 }
 add_action('wwt_send_email_with_log', 'wwt_send_email_with_log_execution');
