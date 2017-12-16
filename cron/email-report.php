@@ -15,7 +15,7 @@ function wwt_send_email_with_log_execution() {
         wp_mkdir_p($logFolder);
     }
 
-    $attachementFilePath = $logFolder . '/export' . $startMonth . '-' . $startYear . '_' . $endMonth . '-' . $endYear . '.csv'
+    $attachementFilePath = $logFolder . '/export' . $startMonth . '-' . $startYear . '_' . $endMonth . '-' . $endYear . '.csv';
 
     $fileToken = fopen( $attachementFilePath, "w" );
     fwrite($fileToken, 'productName, userName, difference, note,' . "\n");
