@@ -71,6 +71,11 @@ function wwt_update_product_stock($product, $quantity) {
                     '</td></tr>';
             }
         ?>
+        <tr class="last">
+            <td class="newer"><input type="button" id="wwt-newer" value="< <?php _e('Newer', 'woocommerce-warehouse-transactions');?>"></td>
+            <td colspan="2"></td>
+            <td class="older"><input type="button" id="wwt-older" value="<?php _e('Older', 'woocommerce-warehouse-transactions');?> >"></td>
+        <tr>
     </table>
     <input type="hidden" id="wwt-page" value="0">
 </div>
@@ -101,6 +106,29 @@ function wwt_update_product_stock($product, $quantity) {
         text-align: left;
     }
 
+    .recent .last .newer{
+        text-align: left;
+    }
+
+    .recent .last .older {
+        text-align: right;
+    }
+
+    .recent .last .newer input, .recent .last .older input {
+        width: 100px;
+        border: 2px solid black;
+        background-color: #87b5ff;
+        border-radius: 3px;
+        cursor: pointer;
+    }
+
+    .recent .last .newer input:hover, .recent .last .older input:hover {
+        background-color: #5a98fc;
+    }
+
+    .recent .last .newer input:active, .recent .last .older input:active {
+        background-color: #59fc6c;
+    }
 
     .recent .user-name {
         width: 150px;
