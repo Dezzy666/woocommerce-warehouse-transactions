@@ -60,6 +60,7 @@ function wwt_update_product_stock($product, $quantity) {
             <th class="user-name"><?php _e('User name', 'woocommerce-warehouse-transactions'); ?></th>
             <th class="difference"><?php _e('Difference', 'woocommerce-warehouse-transactions'); ?></th>
             <th class="note"><?php _e('Note', 'woocommerce-warehouse-transactions'); ?></th>
+            <th class="inserted-at"><?php _e('Inserted at', 'woocommerce-warehouse-transactions'); ?></th>
         </tr>
         <?php
             $logNodes = wwt_log_transformer(WWT_LogEntity::get_last());
@@ -68,12 +69,13 @@ function wwt_update_product_stock($product, $quantity) {
                     '</td><td class="user-name">', $logNode["user-name"],
                     '</td><td class="difference">', $logNode["difference"],
                     '</td><td class="note">', $logNode["note"],
+                    '</td><td class="inserted-at">', $logNode["inserted-at"],
                     '</td></tr>';
             }
         ?>
         <tr class="last">
             <td class="newer"><input type="button" id="wwt-newer" value="< <?php _e('Newer', 'woocommerce-warehouse-transactions');?>"></td>
-            <td colspan="2"></td>
+            <td colspan="3"></td>
             <td class="older"><input type="button" id="wwt-older" value="<?php _e('Older', 'woocommerce-warehouse-transactions');?> >"></td>
         <tr>
     </table>

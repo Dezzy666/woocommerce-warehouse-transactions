@@ -17,6 +17,7 @@ function wwt_log_transformer($logNodes) {
         $node["user-name"] = wwt_get_user_name($logNode->userId);
         $node["difference"] = $logNode->difference;
         $node["note"] = $logNode->notes;
+        $node["inserted-at"] = $logNode->insertedAt;
         array_push($transformedData, $node);
     }
 
