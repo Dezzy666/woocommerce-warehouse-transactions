@@ -65,7 +65,7 @@ function wwt_update_product_stock($product, $quantity) {
         <?php
             $logNodes = wwt_log_transformer(WWT_LogEntity::get_last());
             foreach ($logNodes as $logNode) {
-                echo '<tr><td class="product-name">', $logNode["product-name"],
+                echo '<tr class="data-content"><td class="product-name">', $logNode["product-name"],
                     '</td><td class="user-name">', $logNode["user-name"],
                     '</td><td class="difference">', $logNode["difference"],
                     '</td><td class="note">', $logNode["note"],
@@ -85,7 +85,49 @@ function wwt_update_product_stock($product, $quantity) {
 <script type="text/javascript">
     jQuery(document).ready(function() {
       jQuery(".product-select").select2();
+
+      jQuery("#wwt-older").click(function () {
+          var newPage = parseInt(jQuery("#wwt-page").val()) + 1;
+          changePage(newPage);
+      });
+
+      jQuery("#wwt-newer").click(function () {
+          var newPage = parseInt(jQuery("#wwt-page").val()) - 1;
+          if (newPage < 0) return;
+          changePage(newPage);
+      });
     });
+
+    var changePage = function (newPage) {
+        var data = {
+            'action': 'wwt_get_data_page',
+            'page': newPage
+        };
+        jQuery(".recent").addClass("disabled");
+
+        // since 2.8 ajaxurl is always defined in the admin header and points to admin-ajax.php
+        jQuery.post(ajaxurl, data, function(response) {
+            var responseData = JSON.parse(response);
+            redrawTableContent(responseData.data);
+            jQuery(".recent").removeClass("disabled");
+        });
+
+        jQuery("#wwt-page").val(newPage);
+    }
+
+    var redrawTableContent = function (newData) {
+        jQuery(".data-content").remove();
+        newData.forEach(function (rowData) {
+            var row = jQuery('<tr class="data-content">');
+            row.append('<td class="product-name">' + rowData["product-name"] + '</td>');
+            row.append('<td class="user-name">' + rowData["user-name"] + '</td>');
+            row.append('<td class="difference">' + rowData["difference"] + '</td>');
+            row.append('<td class="note">' + rowData["note"] + '</td>');
+            row.append('<td class="inserted-at">' + rowData["inserted-at"] + '</td>');
+
+            row.insertBefore(jQuery(".last"));
+        });
+    };
 </script>
 
 <style>
@@ -97,6 +139,10 @@ function wwt_update_product_stock($product, $quantity) {
         border-radius: 10px;
         margin-top: 10px;
         margin-bottom: 5px;
+    }
+
+    .disabled {
+        opacity: .5;
     }
 
     .product-select {
@@ -143,6 +189,11 @@ function wwt_update_product_stock($product, $quantity) {
 
     .recent .note {
         width: 450px;
+        text-align: left;
+    }
+
+    .recent .inserted-at {
+        width: 150px;
         text-align: left;
     }
 

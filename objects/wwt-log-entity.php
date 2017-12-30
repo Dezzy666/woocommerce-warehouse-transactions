@@ -57,6 +57,15 @@ class WWT_LogEntity {
         return $result;
     }
 
+    public static function get_page($page = 0, $pageSize = 20) {
+        global $wpdb;
+        $tableName = $wpdb->prefix . LOG_TABLE;
+        $offset = $page * $pageSize;
+
+        $result = $wpdb->get_results( "SELECT * FROM $tableName ORDER BY id DESC LIMIT $pageSize OFFSET $offset", OBJECT );
+        return $result;
+    }
+
     public static function get_log_for_month($startMonth, $startYear, $endMonth, $endYear) {
         global $wpdb;
         $tableName = $wpdb->prefix . LOG_TABLE;

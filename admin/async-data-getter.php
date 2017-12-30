@@ -1,8 +1,15 @@
 <?php
 
 function wwt_get_data_page() {
+    $page = $_POST['page'];
 
+    $wrapper = array();
+    $wrapper['page'] = $page;
 
+    $data = wwt_log_transformer(WWT_LogEntity::get_page($page));
+    $wrapper['data'] = $data;
+
+    echo json_encode($wrapper);
 
     wp_die(); // this is required to terminate immediately and return a proper response
 }
