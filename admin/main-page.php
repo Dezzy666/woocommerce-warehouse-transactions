@@ -62,16 +62,17 @@ function wwt_update_product_stock($product, $quantity) {
             <th class="note"><?php _e('Note', 'woocommerce-warehouse-transactions'); ?></th>
         </tr>
         <?php
-            $logNodes = WWT_LogEntity::get_last();
+            $logNodes = wwt_log_transformer(WWT_LogEntity::get_last());
             foreach ($logNodes as $logNode) {
-                echo '<tr><td class="product-name">', apply_filters('wwt_main_page_product_name_column', wwt_get_product_name($logNode->productId), wc_get_product($logNode->productId)),
-                    '</td><td class="user-name">', wwt_get_user_name($logNode->userId),
-                    '</td><td class="difference">', $logNode->difference,
-                    '</td><td class="note">', $logNode->notes,
+                echo '<tr><td class="product-name">', $logNode["product-name"],
+                    '</td><td class="user-name">', $logNode["user-name"],
+                    '</td><td class="difference">', $logNode["difference"],
+                    '</td><td class="note">', $logNode["note"],
                     '</td></tr>';
             }
         ?>
     </table>
+    <input type="hidden" id="wwt-page" value="0">
 </div>
 
 <script type="text/javascript">

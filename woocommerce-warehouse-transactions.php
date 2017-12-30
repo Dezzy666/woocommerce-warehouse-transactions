@@ -186,5 +186,6 @@ add_action('woocommerce_restock_refunded_item', 'wwt_create_log_restock', 10, 5)
 /******************************************************************************/
 
 include 'admin/admin-menu-setup.php';
+include 'admin/async-data-getter.php';
 include 'cron/email-report.php';
 include 'updater/updater.php';
