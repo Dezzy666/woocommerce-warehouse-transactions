@@ -18,34 +18,87 @@ include_once(__DIR__ . '/objects/wwt-log-entity.php');
 
 
 define('LOG_TABLE', 'woocommerce_warehouse_transactions_log_table');
+define('MATERIAL_LOG_TABLE', 'woocommerce_warehouse_transactions_material_log_table');
+define('MATERIAL_TABLE', 'woocommerce_warehouse_transactions_material_table');
+define('CONSUMPTION_TABLE', 'woocommerce_warehouse_transactions_consumption_table');
+
+define('TABLE_VERSION', 'wwt_database_version');
 
 function woocommerce_warehouse_transactions_install () {
     global $wpdb;
-    $wwt_database_version = '1.0';
+    $wwt_database_version = '2.0';
+
+    $actualVersion = get_option(TABLE_VERSION, '');
 
     $logTable = $wpdb->prefix . LOG_TABLE;
+    $materialTable = $wpdb->prefix . MATERIAL_TABLE;
+    $consumptionTable = $wpdb->prefix . CONSUMPTION_TABLE;
+    $materialLogTable = $wpdb->prefix . MATERIAL_LOG_TABLE;
 
-    $charset_collate = $wpdb->get_charset_collate();
+    if ($actualVersion !== $wwt_database_version) {
 
-    $sqlLogTable = "CREATE TABLE $logTable (
-        id mediumint(9) NOT NULL AUTO_INCREMENT,
-        userId mediumint(9) NULL,
-        productId mediumint(9) NOT NULL,
-        difference int NOT NULL,
-        orderId mediumint(9) NULL,
-        notes text DEFAULT '' NOT NULL,
-        insertedAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-        PRIMARY KEY  (id)
-    )
-    ENGINE=InnoDB
-    $charset_collate;";
+            $charset_collate = $wpdb->get_charset_collate();
 
-    require_once(ABSPATH . 'wp-admin/includes/upgrade.php');
-    dbDelta($sqlLogTable);
+            $sqlLogTable = "CREATE TABLE $logTable (
+                id mediumint(9) NOT NULL AUTO_INCREMENT,
+                userId mediumint(9) NULL,
+                productId mediumint(9) NOT NULL,
+                difference int NOT NULL,
+                orderId mediumint(9) NULL,
+                notes text DEFAULT '' NOT NULL,
+                insertedAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+                PRIMARY KEY  (id)
+            )
+            ENGINE=InnoDB
+            $charset_collate;";
 
-    add_option('wwt_database_version', $wwt_database_version);
+            $sqlMaterialTable = "CREATE TABLE $materialTable (
+                id mediumint(9) NOT NULL AUTO_INCREMENT,
+                name varchar(100) NOT NULL,
+                unit varchar(10) NOT NULL,
+                volume DECIMAL(10,4) NOT NULL,
+                notes text DEFAULT '' NOT NULL,
+                insertedAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+                PRIMARY KEY  (id)
+            )
+            ENGINE=InnoDB
+            $charset_collate;";
+
+            $sqlConsumptionTable = "CREATE TABLE $consumptionTable (
+                id mediumint(9) NOT NULL AUTO_INCREMENT,
+                productId mediumint(9) NOT NULL,
+                materialId mediumint(9) NOT NULL,
+                volume DECIMAL(10,4) NOT NULL,
+                notes text DEFAULT '' NOT NULL,
+                insertedAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+                PRIMARY KEY  (id)
+            )
+            ENGINE=InnoDB
+            $charset_collate;";
+
+            $sqlMaterialLogTable = "CREATE TABLE $materialLogTable (
+                id mediumint(9) NOT NULL AUTO_INCREMENT,
+                userId mediumint(9) NULL,
+                productId mediumint(9) NOT NULL,
+                difference DECIMAL(10,4) NOT NULL,
+                materialId mediumint(9) NOT NULL,
+                notes text DEFAULT '' NOT NULL,
+                insertedAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+                PRIMARY KEY  (id)
+            )
+            ENGINE=InnoDB
+            $charset_collate;";
+
+            require_once(ABSPATH . 'wp-admin/includes/upgrade.php');
+            dbDelta($sqlLogTable);
+            dbDelta($sqlMaterialTable);
+            dbDelta($sqlConsumptionTable);
+            dbDelta($sqlMaterialLogTable);
+
+            add_option(TABLE_VERSION, $wwt_database_version);
+    }
 }
-register_activation_hook(__FILE__, 'woocommerce_warehouse_transactions_install');
+add_action('plugins_loaded', 'woocommerce_warehouse_transactions_install');
 
 function wwt_get_woocommerce_version() {
     $returnValue = intval(substr(WOOCOMMERCE_VERSION, 0, 1));
