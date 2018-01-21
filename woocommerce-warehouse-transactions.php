@@ -16,6 +16,7 @@ define('WWT_PLUGIN_PATH', plugin_dir_path( __FILE__ ));
 
 include_once(__DIR__ . '/objects/wwt-log-entity.php');
 include_once(__DIR__ . '/objects/wwt-material-entity.php');
+include_once(__DIR__ . '/objects/wwt-consumption-entity.php');
 
 
 define('LOG_TABLE', 'woocommerce_warehouse_transactions_log_table');
