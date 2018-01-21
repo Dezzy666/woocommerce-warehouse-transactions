@@ -51,5 +51,6 @@ class WWT_MaterialEntity {
         $wpdb->show_errors();
 
         $result = $wpdb->get_results("SELECT * FROM $tableName ORDER BY id");
+        return $result;
     }
 }
