@@ -45,4 +45,18 @@ class WWT_ConsumptionEntity {
             )
         );
     }
+
+    public static function get_consumptions() {
+        global $wpdb;
+        $tableName = $wpdb->prefix . CONSUMPTION_TABLE;
+        $materialTableName = $wpdb->prefix . MATERIAL_TABLE;
+        $wpdb->show_errors();
+
+        $result = $wpdb->get_results("
+            SELECT consumption.*, material.name as materialName
+            FROM $tableName consumption
+            JOIN $materialTableName material ON consumption.materialId = material.id
+            ORDER BY productId");
+        return $result;
+    }
 }
