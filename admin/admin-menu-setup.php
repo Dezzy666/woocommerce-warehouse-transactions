@@ -28,6 +28,7 @@ add_action( 'admin_menu', 'wwt_setup_execution_menu' );
 
 function wwt_view_execution_page($param) {
     include 'main-page.php';
+    include 'admin-page-styles.php';
 }
 
 function wwt_view_settings_page($param) {
@@ -36,8 +37,10 @@ function wwt_view_settings_page($param) {
 
 function wwt_view_recepies_page($param) {
     include 'recepies-overview.php';
+    include 'admin-page-styles.php';
 }
 
 function wwt_view_material_page($param) {
     include 'material-overview.php';
+    include 'admin-page-styles.php';
 }
