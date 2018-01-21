@@ -1,24 +1,51 @@
+
+<h1><?php _e('Warehouse recepies', 'woocommerce-warehouse-transactions'); ?></h1>
 <?php
 
 $recepiesList = WWT_ConsumptionEntity::get_consumptions();
 
-echo "<table>";
-echo "<tr>";
-echo "<th>" . __('Product name', 'woocommerce-warehouse-transactions') . "</th>";
-echo "<th>" . __('Material name', 'woocommerce-warehouse-transactions') . "</th>";
-echo "<th>" . __('Needed volume', 'woocommerce-warehouse-transactions') . "</th>";
-echo "<th>" . __('Note', 'woocommerce-warehouse-transactions') . "</th>";
-echo "</tr>";
+?>
+<div class="insertion">
+    <table class="recent">
+        <tr>
+            <th class="product-name"><?php _e('Product name', 'woocommerce-warehouse-transactions'); ?></th>
+            <th class="material-name"><?php _e('Material name', 'woocommerce-warehouse-transactions'); ?></th>
+            <th class="needed-volume"><?php _e('Needed volume', 'woocommerce-warehouse-transactions'); ?></th>
+            <th class="note"><?php _e('Note', 'woocommerce-warehouse-transactions'); ?></th>
+        </tr>
+    <?php
+        foreach ($recepiesList as $recepie) {
+            ?>
+            <tr>
+                <td class="product-name"><?php echo $recepie->productId; ?></td>
+                <td class="material-name"><?php echo $recepie->materialName; ?></td>
+                <td class="needed-volume"><?php echo $recepie->volume; ?></td>
+                <td class="note"><?php echo $recepie->notes; ?></td>
+            </tr>
+        <?php
+        }
+    ?>
+    </table>
+</div>
 
-foreach ($recepiesList as $recepie) {
-    echo "<tr>";
+<style>
+    .recent .product-name {
+        width: 150px;
+        text-align: left;
+    }
 
-    echo "<td>" . $recepie->productId . "</td>";
-    echo "<td>" . $recepie->materialName . "</td>";
-    echo "<td>" . $recepie->volume . "</td>";
-    echo "<td>" . $recepie->notes . "</td>";
+    .recent .material-name {
+        width: 150px;
+        text-align: left;
+    }
 
-    echo "</tr>";
-}
+    .recent .note {
+        width: 450px;
+        text-align: left;
+    }
 
-echo "</table>";
+    .recent .needed-volume {
+        width: 150px;
+        text-align: left;
+    }
+</style>
