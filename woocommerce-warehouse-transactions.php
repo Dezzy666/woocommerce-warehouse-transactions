@@ -134,6 +134,7 @@ add_action('init', 'wwt_localizationsample_init');
 function wwt_add_capability_to_admin() {
     $role_object = wp_roles()->get_role('administrator');
     $role_object->add_cap('wwt_rights');
+    $role_object->add_cap('wwt_recepies_rights');
 }
 add_action('admin_init', 'wwt_add_capability_to_admin');
 
