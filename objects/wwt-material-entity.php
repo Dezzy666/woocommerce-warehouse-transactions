@@ -17,14 +17,14 @@ class WWT_MaterialEntity {
     public $name;
     public $unit;
     public $volume;
-    public $note;
+    public $notes;
 
-    public function __construct($name, $unit, $volume, $note = '') {
+    public function __construct($name, $unit, $volume, $notes = '') {
         $this->id = -1;
         $this->name = $name;
         $this->unit = $unit;
         $this->volume = $volume;
-        $this->note = $note;
+        $this->notes = $notes;
     }
 
     public function save() {
@@ -40,7 +40,7 @@ class WWT_MaterialEntity {
                 'name' => $this->name,
                 'unit' => $this->unit,
                 'volume' => $this->volume,
-                'notes' => $this->note
+                'notes' => $this->notes
             )
         );
     }

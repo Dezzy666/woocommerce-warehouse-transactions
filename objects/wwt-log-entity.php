@@ -17,15 +17,15 @@ class WWT_LogEntity {
     public $userId;
     public $productId;
     public $difference;
-    public $note;
+    public $notes;
     public $orderId;
 
-    public function __construct($userId, $productId, $difference, $note = '', $orderId = NULL) {
+    public function __construct($userId, $productId, $difference, $notes = '', $orderId = NULL) {
         $this->id = -1;
         $this->userId = $userId;
         $this->productId = $productId;
         $this->difference = $difference;
-        $this->note = $note;
+        $this->notes = $notes;
         $this->orderId = $orderId;
     }
 
@@ -42,7 +42,7 @@ class WWT_LogEntity {
                 'userId' => $this->userId,
                 'productId' => $this->productId,
                 'difference' => $this->difference,
-                'notes' => $this->note,
+                'notes' => $this->notes,
                 'orderId' => $this->orderId
             )
         );
