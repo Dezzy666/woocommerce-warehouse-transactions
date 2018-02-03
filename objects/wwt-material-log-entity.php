@@ -53,9 +53,13 @@ class WWT_MaterialLogEntity {
     public static function get_last($number = 20) {
         global $wpdb;
         $tableName = $wpdb->prefix . MATERIAL_LOG_TABLE;
+        $materialTable = $wpdb->prefix . MATERIAL_TABLE;
         $wpdb->show_errors();
 
-        $result = $wpdb->get_results( "SELECT * FROM $tableName ORDER BY id DESC LIMIT $number", OBJECT );
+        $result = $wpdb->get_results("SELECT log.*, mat.name
+            FROM $tableName log
+            JOIN $materialTable mat ON log.materialId = mat.Id
+            ORDER BY log.id DESC LIMIT $number" , OBJECT );
         return $result;
     }
 

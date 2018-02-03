@@ -36,6 +36,33 @@ function wwt_update_material_stock($product, $quantity) {
     </form>
 </div>
 
+<div class="insertion">
+    <h2><?php _e('Last changes', 'woocommerce-warehouse-transactions'); ?> </h2>
+    <table class="recent">
+        <tr>
+            <th class="material-name"><?php _e('Material name', 'woocommerce-warehouse-transactions'); ?></th>
+            <th class="user-name"><?php _e('User name', 'woocommerce-warehouse-transactions'); ?></th>
+            <th class="product-name"><?php _e('Product name', 'woocommerce-warehouse-transactions'); ?></th>
+            <th class="difference"><?php _e('Difference', 'woocommerce-warehouse-transactions'); ?></th>
+            <th class="note"><?php _e('Note', 'woocommerce-warehouse-transactions'); ?></th>
+            <th class="inserted-at"><?php _e('Inserted at', 'woocommerce-warehouse-transactions'); ?></th>
+        </tr>
+        <?php
+            $logNodes = wwt_material_log_transformer(WWT_MaterialLogEntity::get_last());
+            foreach ($logNodes as $logNode) {
+                echo '<tr class="data-content">',
+                          '<td class="material-name">', $logNode["material-name"],
+                    '</td><td class="user-name">', $logNode["user-name"],
+                    '</td><td class="product-name">', $logNode["product-name"],
+                    '</td><td class="difference">', $logNode["difference"],
+                    '</td><td class="note">', $logNode["note"],
+                    '</td><td class="inserted-at">', $logNode["inserted-at"],
+                    '</td></tr>';
+            }
+        ?>
+    </table>
+</div>
+
 <script type="text/javascript">
     jQuery(document).ready(function() {
       jQuery(".material-select").select2();

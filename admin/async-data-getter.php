@@ -30,3 +30,25 @@ function wwt_log_transformer($logNodes) {
 
     return $transformedData;
 }
+
+function wwt_material_log_transformer($materialLogNodes) {
+    $transformedData = array();
+    foreach ($materialLogNodes as $materialLogNode) {
+        $node = array();
+        $node["material-name"] = $materialLogNode->name;
+
+        if ($materialLogNode->productId == NULL) {
+            $node["product-name"] = __('Material change added manually', 'woocommerce-warehouse-transactions');
+        } else {
+            $node["product-name"] = apply_filters('wwt_main_page_product_name_column', wwt_get_product_name($materialLogNode->productId), wc_get_product($materialLogNode->productId));
+        }
+
+        $node["user-name"] = wwt_get_user_name($materialLogNode->userId);
+        $node["difference"] = $materialLogNode->difference;
+        $node["note"] = $materialLogNode->notes;
+        $node["inserted-at"] = $materialLogNode->insertedAt;
+        array_push($transformedData, $node);
+    }
+
+    return $transformedData;
+}
