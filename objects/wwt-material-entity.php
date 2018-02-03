@@ -53,4 +53,14 @@ class WWT_MaterialEntity {
         $result = $wpdb->get_results("SELECT * FROM $tableName ORDER BY id");
         return $result;
     }
+
+    public static function increment_material_quantity($materialId, $quantity) {
+        global $wpdb;
+        $tableName = $wpdb->prefix . MATERIAL_TABLE;
+        $wpdb->show_errors();
+
+        $wpdb->query("UPDATE $tableName
+                      SET volume = volume + $quantity
+                      WHERE id = $materialId");
+    }
 }

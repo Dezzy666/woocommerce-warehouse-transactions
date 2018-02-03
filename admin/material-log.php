@@ -16,8 +16,8 @@ if(isset($_POST['material-quantity']) && isset($_POST['material-id'])) {
     }
 }
 
-function wwt_update_material_stock($product, $quantity) {
-
+function wwt_update_material_stock($materialId, $quantity) {
+    WWT_MaterialEntity::increment_material_quantity($materialId, $quantity);
 }
 
 ?>
