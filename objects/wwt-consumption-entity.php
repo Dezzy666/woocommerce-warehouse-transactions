@@ -59,4 +59,13 @@ class WWT_ConsumptionEntity {
             ORDER BY productId");
         return $result;
     }
+
+    public static function get_consumptions_for_product($productId) {
+        global $wpdb;
+        $tableName = $wpdb->prefix . CONSUMPTION_TABLE;
+        $wpdb->show_errors();
+
+        $result = $wpdb->get_results("SELECT * FROM $tableName WHERE productId = $productId");
+        return $result;
+    }
 }

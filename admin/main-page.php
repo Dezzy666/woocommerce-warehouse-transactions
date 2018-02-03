@@ -1,6 +1,8 @@
 <?php
 
 include_once(__DIR__ . '/../objects/wwt-log-entity.php');
+include_once(__DIR__ . '/../objects/wwt-material-log-entity.php');
+include_once(__DIR__ . '/../objects/wwt-consumption-entity.php');
 include_once('admin-page-templates.php');
 
 $args     = array( 'post_type'   => 'product',
@@ -18,6 +20,27 @@ if(isset($_POST['product-quantity']) && isset($_POST['product-id'])) {
         wwt_update_product_stock($product, $_POST['product-quantity']);
         $newLog = new WWT_LogEntity($userId, $_POST['product-id'], $_POST['product-quantity'], $_POST['note']);
         $newLog->save();
+    }
+
+    if ($_POST['product-quantity'] > 0 && isset($_POST['apply-material-change']) && $_POST['apply-material-change']) {
+        wwt_create_consumption_log($_POST['product-id'], $_POST['product-quantity'], $userId, $_POST['note']);
+    }
+}
+
+function wwt_create_consumption_log($productId, $quantity, $userId, $note) {
+    $consumptions = WWT_ConsumptionEntity::get_consumptions_for_product($productId);
+
+    foreach ($consumptions as $consumption) {
+        $consumptionLog = new WWT_MaterialLogEntity(
+            $userId,
+            $productId,
+            $consumption->volume * $quantity,
+            $consumption->materialId,
+            $note
+        );
+        $consumptionLog->save();
+
+        WWT_MaterialEntity::increment_material_quantity($consumption->materialId, -1 * $consumption->volume * $quantity);
     }
 }
 
