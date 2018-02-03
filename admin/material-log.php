@@ -11,7 +11,7 @@ if(isset($_POST['material-quantity']) && isset($_POST['material-id'])) {
 
     if ( is_numeric($_POST['material-quantity'])) {
         wwt_update_material_stock($_POST['material-id'], $_POST['material-quantity']);
-        $newLog = new WWT_MaterialLogEntity($userId, NULL, $_POST['material-quantity'], $_POST['material-quantity'], $_POST['note']);
+        $newLog = new WWT_MaterialLogEntity($userId, NULL, $_POST['material-quantity'], $_POST['material-id'], $_POST['note']);
         $newLog->save();
     }
 }
