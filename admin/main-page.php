@@ -125,24 +125,3 @@ function wwt_update_product_stock($product, $quantity) {
         });
     };
 </script>
-
-<style>
-    .recent .user-name {
-        width: 150px;
-        text-align: left;
-    }
-
-    .recent .difference {
-        text-align: left;
-    }
-
-    .recent .note {
-        width: 450px;
-        text-align: left;
-    }
-
-    .recent .inserted-at {
-        width: 150px;
-        text-align: left;
-    }
-</style>

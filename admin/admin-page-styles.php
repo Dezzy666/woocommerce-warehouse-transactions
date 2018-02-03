@@ -55,6 +55,30 @@
         background-color: lightgray;
     }
 
+    .recent .user-name {
+        width: 150px;
+        text-align: left;
+    }
+
+    .recent .difference {
+        text-align: left;
+    }
+
+    .recent .note {
+        width: 450px;
+        text-align: left;
+    }
+
+    .recent .inserted-at {
+        width: 150px;
+        text-align: left;
+    }
+
+    .recent .material-name {
+        width: 150px;
+        text-align: left;
+    }
+
     span.select2-container {
         display: inline-block !important;
     }
