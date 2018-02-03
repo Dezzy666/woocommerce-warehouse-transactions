@@ -17,7 +17,11 @@ $recepiesList = WWT_ConsumptionEntity::get_consumptions();
         foreach ($recepiesList as $recepie) {
             ?>
             <tr>
-                <td class="product-name"><?php echo $recepie->productId; ?></td>
+                <?php
+                    $product = wc_get_product($recepie->productId);
+                ?>
+
+                <td class="product-name"><?php echo apply_filters('wwt_recepies_product_name', $product->name, $product); ?></td>
                 <td class="material-name"><?php echo $recepie->materialName; ?></td>
                 <td class="needed-volume"><?php echo $recepie->volume; ?></td>
                 <td class="note"><?php echo $recepie->notes; ?></td>
