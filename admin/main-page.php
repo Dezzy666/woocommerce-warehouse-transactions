@@ -1,6 +1,7 @@
 <?php
 
 include_once(__DIR__ . '/../objects/wwt-log-entity.php');
+include_once('admin-page-templates.php');
 
 $args     = array( 'post_type'   => 'product',
                    'numberposts' => -1,
@@ -43,12 +44,7 @@ function wwt_update_product_stock($product, $quantity) {
                 }
             ?>
         </select>
-        <label for="product-quantity"><?php _e('Quantity', 'woocommerce-warehouse-transactions'); ?></label><input type="number" id="product-quantity" name="product-quantity">
-        <label for="product-quantity"><?php _e('Note', 'woocommerce-warehouse-transactions'); ?></label><input type="text" id="note" name="note">
-        <div>
-            <?php _e('+ value means added, - value means taken', 'woocommerce-warehouse-transactions'); ?>
-        </div>
-        <?php submit_button(__('Insert', 'woocommerce-warehouse-transactions')); ?>
+        <?php create_insertion_fields("product"); ?>
     </form>
 </div>
 
