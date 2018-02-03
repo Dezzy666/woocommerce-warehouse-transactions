@@ -81,7 +81,7 @@ function woocommerce_warehouse_transactions_install () {
             $sqlMaterialLogTable = "CREATE TABLE $materialLogTable (
                 id mediumint(9) NOT NULL AUTO_INCREMENT,
                 userId mediumint(9) NULL,
-                productId mediumint(9) NOT NULL,
+                productId mediumint(9) NULL,
                 difference DECIMAL(10,4) NOT NULL,
                 materialId mediumint(9) NOT NULL,
                 notes text DEFAULT '' NOT NULL,

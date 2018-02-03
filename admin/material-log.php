@@ -1,9 +1,24 @@
 <?php
 
 include_once(__DIR__ . '/../objects/wwt-material-entity.php');
+include_once(__DIR__ . '/../objects/wwt-material-log-entity.php');
 include_once('admin-page-templates.php');
 
 $materials = WWT_MaterialEntity::get_materials();
+
+if(isset($_POST['material-quantity']) && isset($_POST['material-id'])) {
+    $userId = get_current_user_id();
+
+    if ( is_numeric($_POST['material-quantity'])) {
+        wwt_update_material_stock($_POST['material-id'], $_POST['material-quantity']);
+        $newLog = new WWT_MaterialLogEntity($userId, NULL, $_POST['material-quantity'], $_POST['material-quantity'], $_POST['note']);
+        $newLog->save();
+    }
+}
+
+function wwt_update_material_stock($product, $quantity) {
+
+}
 
 ?>
 <h1><?php _e('Warehouse material movement log', 'woocommerce-warehouse-transactions'); ?></h1>
