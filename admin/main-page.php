@@ -44,7 +44,7 @@ function wwt_update_product_stock($product, $quantity) {
                 }
             ?>
         </select>
-        <?php create_insertion_fields("product"); ?>
+        <?php create_insertion_fields("product", true); ?>
     </form>
 </div>
 
