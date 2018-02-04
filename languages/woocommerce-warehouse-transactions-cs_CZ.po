@@ -1,9 +1,9 @@
 msgid ""
 msgstr ""
-"Project-Id-Version: Woocommerce Warehouse Transactions v1.0.1\n"
+"Project-Id-Version: Woocommerce Warehouse Transactions v2.0.0\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2017-12-30 14:40:21+0000\n"
+"PO-Revision-Date: 2018-02-04 08:07:31+0000\n"
 "Last-Translator: dezzy <dezzy@seznam.cz>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -30,58 +30,67 @@ msgstr ""
 msgid "Warehouse"
 msgstr "Sklad"
 
-#: woocommerce-warehouse-transactions.php:143
+#: woocommerce-warehouse-transactions.php:199
 #@ woocommerce-warehouse-transactions
 msgid "Order change"
 msgstr "Změna objednávkou"
 
-#: admin/main-page.php:32
+#: admin/main-page.php:56
 #@ woocommerce-warehouse-transactions
 msgid "Warehouse movement log"
 msgstr "Změny ve skladu"
 
-#: admin/main-page.php:35
+#: admin/main-page.php:59
+#: admin/material-log.php:27
 #@ woocommerce-warehouse-transactions
 msgid "Insert change"
 msgstr "Vložit změnu"
 
-#: admin/main-page.php:46
+#: admin/admin-page-templates.php:5
 #@ woocommerce-warehouse-transactions
 msgid "Quantity"
 msgstr "Množství"
 
-#: admin/main-page.php:47
-#: admin/main-page.php:62
+#: admin/admin-page-templates.php:6
+#: admin/main-page.php:81
+#: admin/material-log.php:47
+#: admin/material-overview.php:14
+#: admin/recepies-overview.php:14
 #@ woocommerce-warehouse-transactions
 msgid "Note"
 msgstr "Poznámka"
 
-#: admin/main-page.php:49
+#: admin/admin-page-templates.php:13
 #@ woocommerce-warehouse-transactions
 msgid "+ value means added, - value means taken"
 msgstr "Kladné (+) hodnoty znamenají přírůstek ve skladu, záporné (-) znamenají úbytek"
 
-#: admin/main-page.php:51
+#: admin/admin-page-templates.php:15
 #@ woocommerce-warehouse-transactions
 msgid "Insert"
 msgstr "Vložit"
 
-#: admin/main-page.php:56
+#: admin/main-page.php:75
+#: admin/material-log.php:40
 #@ woocommerce-warehouse-transactions
 msgid "Last changes"
 msgstr "Nedávné změny"
 
-#: admin/main-page.php:59
+#: admin/main-page.php:78
+#: admin/material-log.php:45
+#: admin/recepies-overview.php:11
 #@ woocommerce-warehouse-transactions
 msgid "Product name"
 msgstr "Název produktu"
 
-#: admin/main-page.php:60
+#: admin/main-page.php:79
+#: admin/material-log.php:44
 #@ woocommerce-warehouse-transactions
 msgid "User name"
 msgstr "Uživatel"
 
-#: admin/main-page.php:61
+#: admin/main-page.php:80
+#: admin/material-log.php:46
 #@ woocommerce-warehouse-transactions
 msgid "Difference"
 msgstr "Změna"
@@ -110,40 +119,41 @@ msgstr ""
 msgid "http://jan.herzan.com"
 msgstr ""
 
-#: woocommerce-warehouse-transactions.php:161
+#: woocommerce-warehouse-transactions.php:217
 #, php-format
 #@ woocommerce-warehouse-transactions
 msgid "Amout reduced because of order %d"
 msgstr "Zboží odebráno jako následek objednávky %d"
 
-#: woocommerce-warehouse-transactions.php:174
+#: woocommerce-warehouse-transactions.php:230
 #, php-format
 #@ woocommerce-warehouse-transactions
 msgid "Amout restored because of order %d was canceled"
 msgstr "Zboží vráceno, protože objednávka %d byla zrušena."
 
-#: woocommerce-warehouse-transactions.php:181
+#: woocommerce-warehouse-transactions.php:237
 #, php-format
 #@ woocommerce-warehouse-transactions
 msgid "Amout changed because of order %d was changed"
 msgstr "Změna v objednávca %d"
 
-#: admin/admin-menu-setup.php:23
+#: admin/admin-menu-setup.php:26
 #@ woocommerce-warehouse-transactions
 msgid "WWT settings"
 msgstr "WWT nastavení"
 
-#: admin/main-page.php:63
+#: admin/main-page.php:82
+#: admin/material-log.php:48
 #@ woocommerce-warehouse-transactions
 msgid "Inserted at"
 msgstr "Vloženo"
 
-#: admin/main-page.php:77
+#: admin/main-page.php:96
 #@ woocommerce-warehouse-transactions
 msgid "Newer"
 msgstr "Novější"
 
-#: admin/main-page.php:79
+#: admin/main-page.php:98
 #@ woocommerce-warehouse-transactions
 msgid "Older"
 msgstr "Starší"
@@ -216,15 +226,77 @@ msgstr ""
 msgid "There is no changelog available."
 msgstr ""
 
-#. translators: plugin header field 'Version'
-#: woocommerce-warehouse-transactions.php:0
-#@ woocommerce-warehouse-transactions
-msgid "1.0.1"
-msgstr ""
-
-#: woocommerce-warehouse-transactions.php:108
+#: woocommerce-warehouse-transactions.php:164
 #, php-format
 #@ woocommerce-warehouse-transactions
 msgid "Cron for WWT successfully inserted. Next execution day is %s"
 msgstr "CRON pro WWT byl úspěšně vložen. Příští datum provedení je %s"
+
+#: admin/admin-menu-setup.php:22
+#@ woocommerce-warehouse-transactions
+msgid "Material"
+msgstr "Materiál"
+
+#: admin/admin-menu-setup.php:23
+#@ woocommerce-warehouse-transactions
+msgid "Recepies overview"
+msgstr "Přehled receptů"
+
+#: admin/admin-menu-setup.php:24
+#@ woocommerce-warehouse-transactions
+msgid "Material overview"
+msgstr "Přehled materiálu"
+
+#: admin/admin-page-templates.php:10
+#@ woocommerce-warehouse-transactions
+msgid "Apply material changes"
+msgstr "Odečíst materiál"
+
+#: admin/async-data-getter.php:41
+#@ woocommerce-warehouse-transactions
+msgid "Material change added manually"
+msgstr "Ruční změna materiálu"
+
+#: admin/material-log.php:24
+#@ woocommerce-warehouse-transactions
+msgid "Warehouse material movement log"
+msgstr "Pohyby materiálu na skladě"
+
+#: admin/material-log.php:43
+#: admin/material-overview.php:11
+#: admin/recepies-overview.php:12
+#@ woocommerce-warehouse-transactions
+msgid "Material name"
+msgstr "Jméno materiálu"
+
+#: admin/material-overview.php:1
+#@ woocommerce-warehouse-transactions
+msgid "Warehouse material overview"
+msgstr "Přehled materiálu na skladě"
+
+#: admin/material-overview.php:12
+#@ woocommerce-warehouse-transactions
+msgid "Material unit"
+msgstr "Jednotka materiálu"
+
+#: admin/material-overview.php:13
+#@ woocommerce-warehouse-transactions
+msgid "Stock volume"
+msgstr "Množství skladem"
+
+#: admin/recepies-overview.php:2
+#@ woocommerce-warehouse-transactions
+msgid "Warehouse recepies"
+msgstr "Recepty pro výrobu"
+
+#: admin/recepies-overview.php:13
+#@ woocommerce-warehouse-transactions
+msgid "Needed volume"
+msgstr "Potřebné množství"
+
+#. translators: plugin header field 'Version'
+#: woocommerce-warehouse-transactions.php:0
+#@ woocommerce-warehouse-transactions
+msgid "2.0.1"
+msgstr ""
 
