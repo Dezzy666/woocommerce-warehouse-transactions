@@ -3,10 +3,7 @@
 require 'vendor/autoload.php';
 
 $myUpdateChecker = Puc_v4_Factory::buildUpdateChecker(
-	'https://github.com/Dezzy666/woocommerce-warehouse-transactions/',
+	'https://updates.medinatur.cz/woocommerce-warehouse-transactions/next-version.json',
 	WWT_PLUGIN_PATH,
-	'wwt-update-glug'
+	'woocommerce-warehouse-transactions'
 );
-
-//Set the branch that contains the stable release.
-$myUpdateChecker->setBranch('master');

@@ -1,0 +1,8 @@
+{
+   "name" : "Woocommerce Warehouse Transactions",
+   "version" : "2.0.2",
+   "download_url" : "https://updates.medinatur.cz/woocommerce-warehouse-transactions/2.0.2/package.zip",
+   "sections" : {
+       "description" : "Extension for woocommerce which keeps the track of warehouse changes."
+   }
+}
