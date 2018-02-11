@@ -2,7 +2,7 @@
 /**
  * Plugin Name: Woocommerce Warehouse Transactions
  * Description: Extension for woocommerce which keeps the track of warehouse changes.
- * Version: 2.0.1
+ * Version: 2.0.2
  * Author: Jan Herzan
  * Author URI: http://jan.herzan.com
  * Requires at least: 4.4
