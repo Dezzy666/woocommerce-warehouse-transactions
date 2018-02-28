@@ -30,11 +30,6 @@ $materialList = WWT_MaterialEntity::get_materials();
 </div>
 
 <style>
-    .recent .material-name {
-        width: 150px;
-        text-align: left;
-    }
-
     .recent .material-unit {
         width: 100px;
         text-align: left;

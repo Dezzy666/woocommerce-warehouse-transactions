@@ -38,11 +38,6 @@ $recepiesList = WWT_ConsumptionEntity::get_consumptions();
         text-align: left;
     }
 
-    .recent .material-name {
-        width: 150px;
-        text-align: left;
-    }
-
     .recent .note {
         width: 450px;
         text-align: left;

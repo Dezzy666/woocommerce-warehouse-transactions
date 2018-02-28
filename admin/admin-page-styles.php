@@ -75,7 +75,7 @@
     }
 
     .recent .material-name {
-        width: 150px;
+        width: 250px;
         text-align: left;
     }
 
