@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "500a8aa113cb1c46d80309833736a1ea",
+    "content-hash": "f34d5a00b74cfd64180cd0d349b3dc07",
     "packages": [
         {
             "name": "yahnis-elsts/plugin-update-checker",
