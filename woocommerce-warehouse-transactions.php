@@ -28,7 +28,7 @@ define('TABLE_VERSION', 'wwt_database_version');
 
 function woocommerce_warehouse_transactions_install () {
     global $wpdb;
-    $wwt_database_version = '2.0';
+    $wwt_database_version = '2.1';
 
     $actualVersion = get_option(TABLE_VERSION, '');
 
@@ -49,6 +49,7 @@ function woocommerce_warehouse_transactions_install () {
                 orderId mediumint(9) NULL,
                 notes text DEFAULT '' NOT NULL,
                 insertedAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+                newValue mediumint(9) NULL,
                 PRIMARY KEY  (id)
             )
             ENGINE=InnoDB
