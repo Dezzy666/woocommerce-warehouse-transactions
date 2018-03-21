@@ -35,6 +35,11 @@ class WWT_LogEntity {
 
     private function insert() {
         global $wpdb;
+
+        /* HACKY SOLUTION */
+        $product = wc_get_product($this->productId);
+        $currentStock = $product->get_stock_quantity();
+
         $wpdb->show_errors();
         $wpdb->insert(
             $wpdb->prefix . LOG_TABLE,
@@ -43,7 +48,8 @@ class WWT_LogEntity {
                 'productId' => $this->productId,
                 'difference' => $this->difference,
                 'notes' => $this->notes,
-                'orderId' => $this->orderId
+                'orderId' => $this->orderId,
+                'newValue' => $currentStock
             )
         );
     }
