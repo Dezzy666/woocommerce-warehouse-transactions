@@ -12,7 +12,7 @@
  * Domain Path: /languages/
  */
 
-define('WWT_PLUGIN_PATH', plugin_dir_path( __FILE__ ));
+define('WWT_PLUGIN_PATH', __FILE__);
 
 include_once(__DIR__ . '/objects/wwt-log-entity.php');
 include_once(__DIR__ . '/objects/wwt-material-entity.php');
