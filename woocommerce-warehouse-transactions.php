@@ -147,6 +147,20 @@ function wwt_remove_stock_tab($tabs) {
 }
 add_filter('woocommerce_product_data_tabs', 'wwt_remove_stock_tab');
 
+
+/******************************************************************************/
+/*              JS & CSS DEPENDENCIES                                         */
+/******************************************************************************/
+
+function wwt_include_javascript_and_css() {
+    wp_enqueue_script('jquery');
+    wp_enqueue_script('jquery-ui', plugin_dir_url('js/libs/jquery-ui-1.11.2.min.js', __FILE__), array('jquery'), '1.11.2');
+    wp_enqueue_script('barcode-component', plugin_dir_url(__FILE__) . 'js/SimpleBarcodeApi.js', array('jquery', 'jquery-ui'));
+
+    wp_enqueue_style('jquery-ui', plugins_url('js/libs/jquery-ui-1.11.2.min.css', __FILE__));
+}
+add_action( 'admin_enqueue_scripts', 'wwt_include_javascript_and_css' );
+
 /******************************************************************************/
 /*              CRON TASK INSERTION                                           */
 /******************************************************************************/
