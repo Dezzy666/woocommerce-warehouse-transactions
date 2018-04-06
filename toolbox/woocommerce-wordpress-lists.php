@@ -34,6 +34,16 @@ if (!function_exists('get_product_tags')) {
     }
 }
 
+if (!function_exists('get_product_list')) {
+    function get_product_list() {
+        $args     = array( 'post_type'   => 'product',
+                           'numberposts' => -1,
+                           'orderby'     => 'title',
+                           'order'       => 'ASC');
+        return get_posts( $args );
+    }
+}
+
 if (!function_exists('get_page_list')) {
     function get_page_list() {
         $pages = get_pages();

@@ -5,11 +5,7 @@ include_once(__DIR__ . '/../objects/wwt-material-log-entity.php');
 include_once(__DIR__ . '/../objects/wwt-consumption-entity.php');
 include_once('admin-page-templates.php');
 
-$args     = array( 'post_type'   => 'product',
-                   'numberposts' => -1,
-                   'orderby'     => 'title',
-                   'order'       => 'ASC');
-$products = get_posts( $args );
+$products = get_product_list();
 
 if(isset($_POST['product-quantity']) && isset($_POST['product-id'])) {
     $userId = get_current_user_id();
