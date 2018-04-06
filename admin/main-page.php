@@ -48,6 +48,8 @@ function wwt_update_product_stock($product, $quantity) {
     }
 }
 
+$isCeskeSluzbyUp = is_plugin_active('ceske-sluzby/ceske-sluzby.php');
+
 ?>
 <h1><?php _e('Warehouse movement log', 'woocommerce-warehouse-transactions'); ?></h1>
 <div class="insertion">
@@ -59,7 +61,15 @@ function wwt_update_product_stock($product, $quantity) {
                 foreach ($products as $product) {
                     $wcProduct = wc_get_product($product->ID);
                     if ($wcProduct->get_manage_stock()) {
-                        echo '<option value="', $product->ID,'" data-sku="', $wcProduct->get_sku(),'">', apply_filters('wwt_main_page_dropdown_option', $product->ID . ' ' . $product->post_title, $wcProduct),'</option>';
+                        if ($isCeskeSluzbyUp) {
+                            //// USE EAN
+                            $searchValue = get_post_meta($product->ID, 'ceske_sluzby_hodnota_ean', true);
+                        } else {
+                            //// USE SKU
+                            $searchValue = $wcProduct->get_sku();
+                        }
+
+                        echo '<option value="', $product->ID,'" data-sku="', $searchValue,'">', apply_filters('wwt_main_page_dropdown_option', $product->ID . ' ' . $product->post_title, $wcProduct),'</option>';
                     }
                 }
             ?>
