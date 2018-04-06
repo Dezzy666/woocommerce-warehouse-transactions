@@ -248,3 +248,8 @@ include 'admin/admin-menu-setup.php';
 include 'admin/async-data-getter.php';
 include 'cron/email-report.php';
 include 'updater/updater.php';
+
+include 'toolbox/admin-menu-tools.php';
+include 'toolbox/aggregated-information.php';
+include 'toolbox/properties-handling.php';
+include 'toolbox/woocommerce-wordpress-lists.php';
