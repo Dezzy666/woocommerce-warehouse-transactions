@@ -54,4 +54,5 @@ function wwt_view_material_log_page($param) {
 
 function wwt_view_stock_overview_page($param) {
     include 'stock-overview.php';
+    include 'admin-page-styles.php';
 }
