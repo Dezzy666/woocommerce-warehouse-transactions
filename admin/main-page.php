@@ -167,13 +167,20 @@ $isCeskeSluzbyUp = is_plugin_active('ceske-sluzby/ceske-sluzby.php');
     jQuery("#scanned-code").SimpleBarcodeReadingWrapper({
         onCodeInserted: function(code) {
             jQuery("#dialog").dialog("close");
+
+            var valid = false;
             jQuery("#product-id option").each(function (element) {
                 var jQueryElement = jQuery(this);
-                if (jQueryElement.data("sku").toUpperCase() === code) {
+                if (String(jQueryElement.data("sku")).toUpperCase() === code) {
                     jQuery(".product-select").val(jQueryElement.val());
                     jQuery(".product-select").trigger('change');
+                    return valid = true;
                 }
             });
+
+            if (!valid) {
+                alert("<?php _e('Code not recognized', 'woocommerce-warehouse-transactions'); ?>");
+            }
         }
     });
     jQuery("#find-button").click(function(e) {
