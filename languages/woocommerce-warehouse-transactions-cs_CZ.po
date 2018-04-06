@@ -1,9 +1,9 @@
 msgid ""
 msgstr ""
-"Project-Id-Version: Woocommerce Warehouse Transactions v2.0.0\n"
+"Project-Id-Version: Woocommerce Warehouse Transactions v2.0.3\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2018-02-04 08:07:31+0000\n"
+"PO-Revision-Date: 2018-04-06 22:28:26+0000\n"
 "Last-Translator: dezzy <dezzy@seznam.cz>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -30,29 +30,30 @@ msgstr ""
 msgid "Warehouse"
 msgstr "Sklad"
 
-#: woocommerce-warehouse-transactions.php:199
+#: woocommerce-warehouse-transactions.php:214
 #@ woocommerce-warehouse-transactions
 msgid "Order change"
 msgstr "Změna objednávkou"
 
-#: admin/main-page.php:56
+#: admin/main-page.php:54
 #@ woocommerce-warehouse-transactions
 msgid "Warehouse movement log"
 msgstr "Změny ve skladu"
 
-#: admin/main-page.php:59
+#: admin/main-page.php:57
 #: admin/material-log.php:27
 #@ woocommerce-warehouse-transactions
 msgid "Insert change"
 msgstr "Vložit změnu"
 
 #: admin/admin-page-templates.php:5
+#: admin/stock-overview.php:42
 #@ woocommerce-warehouse-transactions
 msgid "Quantity"
 msgstr "Množství"
 
 #: admin/admin-page-templates.php:6
-#: admin/main-page.php:81
+#: admin/main-page.php:88
 #: admin/material-log.php:47
 #: admin/material-overview.php:14
 #: admin/recepies-overview.php:14
@@ -70,26 +71,27 @@ msgstr "Kladné (+) hodnoty znamenají přírůstek ve skladu, záporné (-) zna
 msgid "Insert"
 msgstr "Vložit"
 
-#: admin/main-page.php:75
+#: admin/main-page.php:82
 #: admin/material-log.php:40
 #@ woocommerce-warehouse-transactions
 msgid "Last changes"
 msgstr "Nedávné změny"
 
-#: admin/main-page.php:78
+#: admin/main-page.php:85
 #: admin/material-log.php:45
 #: admin/recepies-overview.php:11
+#: admin/stock-overview.php:41
 #@ woocommerce-warehouse-transactions
 msgid "Product name"
 msgstr "Název produktu"
 
-#: admin/main-page.php:79
+#: admin/main-page.php:86
 #: admin/material-log.php:44
 #@ woocommerce-warehouse-transactions
 msgid "User name"
 msgstr "Uživatel"
 
-#: admin/main-page.php:80
+#: admin/main-page.php:87
 #: admin/material-log.php:46
 #@ woocommerce-warehouse-transactions
 msgid "Difference"
@@ -119,41 +121,41 @@ msgstr ""
 msgid "http://jan.herzan.com"
 msgstr ""
 
-#: woocommerce-warehouse-transactions.php:217
+#: woocommerce-warehouse-transactions.php:232
 #, php-format
 #@ woocommerce-warehouse-transactions
 msgid "Amout reduced because of order %d"
 msgstr "Zboží odebráno jako následek objednávky %d"
 
-#: woocommerce-warehouse-transactions.php:230
+#: woocommerce-warehouse-transactions.php:245
 #, php-format
 #@ woocommerce-warehouse-transactions
 msgid "Amout restored because of order %d was canceled"
 msgstr "Zboží vráceno, protože objednávka %d byla zrušena."
 
-#: woocommerce-warehouse-transactions.php:237
+#: woocommerce-warehouse-transactions.php:252
 #, php-format
 #@ woocommerce-warehouse-transactions
 msgid "Amout changed because of order %d was changed"
 msgstr "Změna v objednávca %d"
 
-#: admin/admin-menu-setup.php:26
+#: admin/admin-menu-setup.php:27
 #@ woocommerce-warehouse-transactions
 msgid "WWT settings"
 msgstr "WWT nastavení"
 
-#: admin/main-page.php:82
+#: admin/main-page.php:89
 #: admin/material-log.php:48
 #@ woocommerce-warehouse-transactions
 msgid "Inserted at"
 msgstr "Vloženo"
 
-#: admin/main-page.php:96
+#: admin/main-page.php:103
 #@ woocommerce-warehouse-transactions
 msgid "Newer"
 msgstr "Novější"
 
-#: admin/main-page.php:98
+#: admin/main-page.php:105
 #@ woocommerce-warehouse-transactions
 msgid "Older"
 msgstr "Starší"
@@ -226,7 +228,7 @@ msgstr ""
 msgid "There is no changelog available."
 msgstr ""
 
-#: woocommerce-warehouse-transactions.php:164
+#: woocommerce-warehouse-transactions.php:179
 #, php-format
 #@ woocommerce-warehouse-transactions
 msgid "Cron for WWT successfully inserted. Next execution day is %s"
@@ -237,12 +239,12 @@ msgstr "CRON pro WWT byl úspěšně vložen. Příští datum provedení je %s"
 msgid "Material"
 msgstr "Materiál"
 
-#: admin/admin-menu-setup.php:23
+#: admin/admin-menu-setup.php:24
 #@ woocommerce-warehouse-transactions
 msgid "Recepies overview"
 msgstr "Přehled receptů"
 
-#: admin/admin-menu-setup.php:24
+#: admin/admin-menu-setup.php:25
 #@ woocommerce-warehouse-transactions
 msgid "Material overview"
 msgstr "Přehled materiálu"
@@ -294,9 +296,60 @@ msgstr "Recepty pro výrobu"
 msgid "Needed volume"
 msgstr "Potřebné množství"
 
+#: admin/admin-menu-setup.php:23
+#: admin/stock-overview.php:33
+#@ woocommerce-warehouse-transactions
+msgid "Stock overview"
+msgstr "Přehled skladu"
+
+#: admin/main-page.php:111
+#@ woocommerce-warehouse-transactions
+msgid "Code search"
+msgstr "Vyhledávání čárového kódu"
+
+#: admin/main-page.php:112
+#@ woocommerce-warehouse-transactions
+msgid "Scane a code"
+msgstr "Naskenujte kód"
+
+#: admin/main-page.php:182
+#@ woocommerce-warehouse-transactions
+msgid "Code not recognized"
+msgstr "Čárový kód nebyl nalezen"
+
+#: admin/stock-overview.php:37
+#@ woocommerce-warehouse-transactions
+msgid "Current stock quantity"
+msgstr "Aktuální stav skladu"
+
+#: admin/stock-overview.php:40
+#@ woocommerce-warehouse-transactions
+msgid "Product Id"
+msgstr "ID produktu"
+
+#: admin/stock-overview.php:55
+#@ woocommerce-warehouse-transactions
+msgid "Orders which were not sent"
+msgstr "Objednávky, které ještě nebyly odeslány"
+
+#: admin/stock-overview.php:58
+#@ woocommerce-warehouse-transactions
+msgid "Order Id"
+msgstr "Číslo objednávky"
+
+#: admin/stock-overview.php:59
+#@ woocommerce-warehouse-transactions
+msgid "Order state"
+msgstr "Stav objednávky"
+
+#: toolbox/admin-menu-tools.php:28
+#@ medinatur_v3
+msgid "Select all"
+msgstr ""
+
 #. translators: plugin header field 'Version'
 #: woocommerce-warehouse-transactions.php:0
 #@ woocommerce-warehouse-transactions
-msgid "2.0.1"
+msgid "2.0.3"
 msgstr ""
 
