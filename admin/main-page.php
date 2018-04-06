@@ -53,12 +53,13 @@ function wwt_update_product_stock($product, $quantity) {
 <div class="insertion">
     <form method="post">
         <h2><?php _e('Insert change', 'woocommerce-warehouse-transactions'); ?></h2>
+        <button class="find-button" id="find-button">Find</button>
         <select class="product-select" id="product-id" name="product-id">
             <?php
                 foreach ($products as $product) {
                     $wcProduct = wc_get_product($product->ID);
                     if ($wcProduct->get_manage_stock()) {
-                        echo '<option value="', $product->ID,'"">', apply_filters('wwt_main_page_dropdown_option', $product->ID . ' ' . $product->post_title, $wcProduct),'</option>';
+                        echo '<option value="', $product->ID,'" data-sku="', $wcProduct->get_sku(),'">', apply_filters('wwt_main_page_dropdown_option', $product->ID . ' ' . $product->post_title, $wcProduct),'</option>';
                     }
                 }
             ?>
@@ -95,6 +96,11 @@ function wwt_update_product_stock($product, $quantity) {
         <tr>
     </table>
     <input type="hidden" id="wwt-page" value="0">
+</div>
+
+<div id="dialog" title="<?php _e('Code search', 'woocommerce-warehouse-transactions'); ?>">
+  <p><?php _e('Scane a code', 'woocommerce-warehouse-transactions'); ?></p>
+  <input value="" id="scanned-code">
 </div>
 
 <script type="text/javascript">
@@ -143,4 +149,25 @@ function wwt_update_product_stock($product, $quantity) {
             row.insertBefore(jQuery(".last"));
         });
     };
+
+    jQuery("#dialog").dialog({
+      autoOpen: false,
+      modal: true
+    });
+    jQuery("#scanned-code").SimpleBarcodeReadingWrapper({
+        onCodeInserted: function(code) {
+            jQuery("#dialog").dialog("close");
+            jQuery("#product-id option").each(function (element) {
+                var jQueryElement = jQuery(this);
+                if (jQueryElement.data("sku").toUpperCase() === code) {
+                    jQuery(".product-select").val(jQueryElement.val());
+                    jQuery(".product-select").trigger('change');
+                }
+            });
+        }
+    });
+    jQuery("#find-button").click(function(e) {
+        e.preventDefault();
+        jQuery("#dialog").dialog("open");
+    });
 </script>
