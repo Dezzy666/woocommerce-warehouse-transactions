@@ -58,6 +58,31 @@ if (!function_exists('get_page_list')) {
     }
 }
 
+if (!function_exists('get_orders_ids_in_state')) {
+    function get_orders_ids_in_state($states) {
+        $wordpressStates = array();
+
+        foreach ($states as $state) {
+            array_push($wordpressStates, 'wc-'.$state);
+        }
+
+        $args     = array( 'post_type'   => 'shop_order',
+                           'post_status' => $wordpressStates,
+                           'numberposts' => -1,
+                           'orderby'     => 'title',
+                           'order'       => 'ASC');
+
+        $orders = get_posts( $args );
+        $output = array();
+
+        foreach ($orders as $order) {
+            $output[$order->ID] = str_replace('wc-', '', $order->post_status);
+        }
+
+        return $output;
+    }
+}
+
 if (!function_exists('get_product_categories')) {
     function get_product_categories() {
         $taxonomy     = 'product_cat';

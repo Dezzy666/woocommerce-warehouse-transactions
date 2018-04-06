@@ -9,6 +9,15 @@
         margin-bottom: 5px;
     }
 
+    .insertion-small {
+        background-color: white;
+        padding: 5px 20px 20px 20px;
+        border: 3px solid black;
+        border-radius: 10px;
+        margin-top: 10px;
+        margin-bottom: 5px;
+    }
+
     .disabled {
         opacity: .5;
     }
