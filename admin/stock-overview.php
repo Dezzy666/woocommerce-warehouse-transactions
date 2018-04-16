@@ -23,7 +23,7 @@ foreach ($removedOrders as $orderId => $orderStatus) {
         $orderProductId = $orderProduct->get_id();
         $itemQuantity = $itemData->get_quantity();
 
-        if (array_search($orderProductId, $productData) !== -1) {
+        if ($orderProduct->get_manage_stock() && array_search($orderProductId, $productData) !== -1) {
             $productData[$orderProductId]->qty += $itemQuantity;
         }
     }
