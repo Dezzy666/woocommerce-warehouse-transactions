@@ -53,9 +53,9 @@ $isCeskeSluzbyUp = is_plugin_active('ceske-sluzby/ceske-sluzby.php');
 ?>
 <h1><?php _e('Warehouse movement log', 'woocommerce-warehouse-transactions'); ?></h1>
 <div class="insertion">
+    <h2><?php _e('Insert change', 'woocommerce-warehouse-transactions'); ?></h2>
+    <button class="find-button" id="find-button">Find</button>
     <form method="post">
-        <h2><?php _e('Insert change', 'woocommerce-warehouse-transactions'); ?></h2>
-        <button class="find-button" id="find-button">Find</button>
         <select class="product-select" id="product-id" name="product-id">
             <?php
                 foreach ($products as $product) {

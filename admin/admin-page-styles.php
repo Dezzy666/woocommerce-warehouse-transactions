@@ -1,4 +1,14 @@
 <style>
+    .find-button {
+        float: left;
+        margin-right: 10px;
+        margin-top: 6px;
+        border: 2px solid black;
+        background-color: #87b5ff;
+        border-radius: 3px;
+        cursor: pointer;
+    }
+
     .insertion {
         width: 90%;
         background-color: white;
