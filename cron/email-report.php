@@ -3,10 +3,10 @@
 function wwt_send_email_with_log_execution() {
     $dayOfMonth = date('d');
     $hour = date('H');
-    $startMonth = date('m', strtotime(" -2 months"));
-    $startYear = date('Y', strtotime(" -2 months"));
-    $endMonth = date('m', strtotime(" -1 months"));
-    $endYear = date('Y', strtotime(" -1 months"));
+    $startMonth = date('m', strtotime(" -1 months"));
+    $startYear = date('Y', strtotime(" -1 months"));
+    $endMonth = date('m', strtotime(" -0 months"));
+    $endYear = date('Y', strtotime(" -0 months"));
 
     $uploadDir = wp_upload_dir();
     $logFolder = $uploadDir['basedir'] . '/wwt-log-exports/';
