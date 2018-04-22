@@ -1,9 +1,9 @@
 @echo off
-FOR /F "tokens=* USEBACKQ" %%F IN (`findstr /R /C:"Version :" ..\woocommerce-warehouse-transactions.php`) DO (
+FOR /F "tokens=* USEBACKQ" %%F IN (`findstr /R /C:" * Version:" ..\woocommerce-warehouse-transactions.php`) DO (
 SET versionBeforFilter=%%F
 )
 
-SET versionNumber=%versionBeforFilter:~9%
+SET versionNumber=%versionBeforFilter:~11%
 
 ECHO Creating file for new version %versionNumber%
 
@@ -19,6 +19,7 @@ CALL :cloneFolder "admin"
 CALL :cloneFolder "cron"
 CALL :cloneFolder "images"
 CALL :cloneFolder "js"
+CALL :cloneFolder "languages"
 CALL :cloneFolder "libs"
 CALL :cloneFolder "objects"
 CALL :cloneFolder "toolbox"
