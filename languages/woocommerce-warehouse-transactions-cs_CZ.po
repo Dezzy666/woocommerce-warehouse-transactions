@@ -1,9 +1,9 @@
 msgid ""
 msgstr ""
-"Project-Id-Version: Woocommerce Warehouse Transactions v2.0.3\n"
+"Project-Id-Version: Woocommerce Warehouse Transactions v2.0.5\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2018-04-06 22:28:26+0000\n"
+"PO-Revision-Date: 2018-04-22 19:25:59+0000\n"
 "Last-Translator: dezzy <dezzy@seznam.cz>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -40,7 +40,7 @@ msgstr "Změna objednávkou"
 msgid "Warehouse movement log"
 msgstr "Změny ve skladu"
 
-#: admin/main-page.php:57
+#: admin/main-page.php:56
 #: admin/material-log.php:27
 #@ woocommerce-warehouse-transactions
 msgid "Insert change"
@@ -350,6 +350,11 @@ msgstr ""
 #. translators: plugin header field 'Version'
 #: woocommerce-warehouse-transactions.php:0
 #@ woocommerce-warehouse-transactions
-msgid "2.0.3"
+msgid "2.0.5"
 msgstr ""
+
+#: admin/main-page.php:57
+#@ woocommerce-warehouse-transactions
+msgid "Find"
+msgstr "Hledat"
 
