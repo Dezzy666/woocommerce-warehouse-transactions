@@ -6,7 +6,7 @@ function create_insertion_fields($prefix, $showCheckbox = false) {
     <label for="<?php echo $prefix; ?>-note"><?php _e('Note', 'woocommerce-warehouse-transactions'); ?></label><input type="text" id="note" name="note">
 
     <?php if ($showCheckbox) { ?>
-        <input type="checkbox" name="apply-material-change" id="apply-material-change" checked="checked">
+        <input type="checkbox" name="apply-material-change" id="apply-material-change">
         <label for="apply-material-change"><?php _e('Apply material changes', 'woocommerce-warehouse-transactions'); ?></label>
     <?php } ?>
     <div>
