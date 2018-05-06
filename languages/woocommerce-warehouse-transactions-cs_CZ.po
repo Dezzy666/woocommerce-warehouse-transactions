@@ -1,9 +1,9 @@
 msgid ""
 msgstr ""
-"Project-Id-Version: Woocommerce Warehouse Transactions v2.0.5\n"
+"Project-Id-Version: Woocommerce Warehouse Transactions v2.0.6\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2018-04-22 19:25:59+0000\n"
+"PO-Revision-Date: 2018-05-06 20:01:21+0000\n"
 "Last-Translator: dezzy <dezzy@seznam.cz>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -121,23 +121,11 @@ msgstr ""
 msgid "http://jan.herzan.com"
 msgstr ""
 
-#: woocommerce-warehouse-transactions.php:232
+#: woocommerce-warehouse-transactions.php:253
 #, php-format
 #@ woocommerce-warehouse-transactions
 msgid "Amout reduced because of order %d"
 msgstr "Zboží odebráno jako následek objednávky %d"
-
-#: woocommerce-warehouse-transactions.php:245
-#, php-format
-#@ woocommerce-warehouse-transactions
-msgid "Amout restored because of order %d was canceled"
-msgstr "Zboží vráceno, protože objednávka %d byla zrušena."
-
-#: woocommerce-warehouse-transactions.php:252
-#, php-format
-#@ woocommerce-warehouse-transactions
-msgid "Amout changed because of order %d was changed"
-msgstr "Změna v objednávca %d"
 
 #: admin/admin-menu-setup.php:27
 #@ woocommerce-warehouse-transactions
@@ -347,14 +335,32 @@ msgstr "Stav objednávky"
 msgid "Select all"
 msgstr ""
 
-#. translators: plugin header field 'Version'
-#: woocommerce-warehouse-transactions.php:0
-#@ woocommerce-warehouse-transactions
-msgid "2.0.5"
-msgstr ""
-
 #: admin/main-page.php:57
 #@ woocommerce-warehouse-transactions
 msgid "Find"
 msgstr "Hledat"
+
+#. translators: plugin header field 'Version'
+#: woocommerce-warehouse-transactions.php:0
+#@ woocommerce-warehouse-transactions
+msgid "2.0.6"
+msgstr ""
+
+#: woocommerce-warehouse-transactions.php:230
+#, php-format
+#@ woocommerce-warehouse-transactions
+msgid "Amout reduced because of change in order %d."
+msgstr "Zboží odebráno jako následek objednávky %d."
+
+#: woocommerce-warehouse-transactions.php:242
+#, php-format
+#@ woocommerce-warehouse-transactions
+msgid "Amout restored because of change in order %d."
+msgstr "Zboží přidáno následkem změny v objednávce %d."
+
+#: woocommerce-warehouse-transactions.php:261
+#, php-format
+#@ woocommerce-warehouse-transactions
+msgid "Amout changed because of order %d was refunded"
+msgstr "Změna vyvolaná vrácením objednávky %d."
 
