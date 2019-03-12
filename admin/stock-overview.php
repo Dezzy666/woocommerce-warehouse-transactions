@@ -10,7 +10,8 @@ foreach ($products as $product) {
         $productData[$product->ID] = (object)
             [
                 'name' => apply_filters('wwt_main_page_product_name_column', $wcProduct->get_title(), $wcProduct),
-                'qty' => $wcProduct->get_stock_quantity()
+                'qty' => $wcProduct->get_stock_quantity(),
+                'initialQty' => $wcProduct->get_stock_quantity()
             ];
     }
 }
@@ -34,7 +35,7 @@ foreach ($removedOrders as $orderId => $orderStatus) {
 
 <table class="insertion-small">
     <tr>
-        <th colspan="3"><?php _e('Current stock quantity', 'woocommerce-warehouse-transactions'); ?></th>
+        <th colspan="3"><?php _e('Current physical stock state', 'woocommerce-warehouse-transactions'); ?></th>
     </tr>
     <tr>
         <th><?php _e('Product Id', 'woocommerce-warehouse-transactions'); ?></th>
@@ -45,6 +46,24 @@ foreach ($removedOrders as $orderId => $orderStatus) {
 <?php
     foreach ($productData as $productId => $productSummary) {
         echo '<tr><td>', $productId, '</td><td>', $productSummary->name, '</td><td>', $productSummary->qty, '</td></tr>';
+    }
+?>
+
+</table>
+
+<table class="insertion-small">
+    <tr>
+        <th colspan="3"><?php _e('Current virtual stock state', 'woocommerce-warehouse-transactions'); ?></th>
+    </tr>
+    <tr>
+        <th><?php _e('Product Id', 'woocommerce-warehouse-transactions'); ?></th>
+        <th><?php _e('Product name', 'woocommerce-warehouse-transactions'); ?></th>
+        <th><?php _e('Quantity', 'woocommerce-warehouse-transactions'); ?></th>
+    </tr>
+
+<?php
+    foreach ($productData as $productId => $productSummary) {
+        echo '<tr><td>', $productId, '</td><td>', $productSummary->name, '</td><td>', $productSummary->initialQty, '</td></tr>';
     }
 ?>
 
