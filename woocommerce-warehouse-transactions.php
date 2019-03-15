@@ -222,40 +222,41 @@ function wwt_get_product_name($productId) {
     return $product->get_title();
 }
 
-function wwt_create_log_reduce_quantity($quantity, $itemId) {
-    $orderItem = new WC_Order_Item_Product($itemId);
-    $productId = $orderItem->get_product_id();
-    $orderId = $orderItem->get_order_id();
+function wwt_create_log_reduce_quantity($order) {
+    $orderId = $order->id;
+    $orderItems = $order->get_items();
+    if (get_option('woocommerce_manage_stock') == 'yes' && sizeof($orderItems) > 0) {
+        foreach ( $orderItems as $itemId => $orderItem ) {
+            $product = $orderItem->get_product();
+            if ($product && $product->exists() && $product->managing_stock()) {
+                $productId = $product->get_id();
+                $quantity = $orderItem->get_quantity();
 
-    $newLog = new WWT_LogEntity(NULL, $productId, -$quantity, sprintf(__('Amout reduced because of change in order %d.', 'woocommerce-warehouse-transactions'), $orderId), $orderId);
-    $newLog->save();
-
-    return $quantity;
+                $newLog = new WWT_LogEntity(NULL, $productId, -$quantity, sprintf(__('Amout reduced because of change in order %d.', 'woocommerce-warehouse-transactions'), $orderId), $orderId);
+                $newLog->save();
+            }
+        }
+    }
 }
-add_action('woocommerce_reduce_order_stock_quantity', 'wwt_create_log_reduce_quantity', 10, 2);
+add_action('woocommerce_reduce_order_stock', 'wwt_create_log_reduce_quantity');
 
-function wwt_create_log_restore_quantity($quantity, $itemId) {
-    $orderItem = new WC_Order_Item_Product($itemId);
-    $productId = $orderItem->get_product_id();
-    $orderId = $orderItem->get_order_id();
+function wwt_create_log_restore_quantity($order) {
+    $orderId = $order->id;
+    $orderItems = $order->get_items();
+    if (get_option('woocommerce_manage_stock') == 'yes' && sizeof($orderItems) > 0) {
+        foreach ( $orderItems as $itemId => $orderItem ) {
+            $product = $orderItem->get_product();
+            if ($product && $product->exists() && $product->managing_stock()) {
+                $productId = $product->get_id();
+                $quantity = $orderItem->get_quantity();
 
-    $newLog = new WWT_LogEntity(NULL, $productId, $quantity, sprintf(__('Amout restored because of change in order %d.', 'woocommerce-warehouse-transactions'), $orderId), $orderId);
-    $newLog->save();
-
-    return $quantity;
+                $newLog = new WWT_LogEntity(NULL, $productId, $quantity, sprintf(__('Amout restored because of change in order %d.', 'woocommerce-warehouse-transactions'), $orderId), $orderId);
+                $newLog->save();
+            }
+        }
+    }
 }
-add_action('woocommerce_restore_order_stock_quantity', 'wwt_create_log_restore_quantity', 10, 2);
-
-function wwt_create_log_reduce_quantity_after_order($quantity, $order, $orderItem) {
-    $productId = $orderItem->get_product_id();
-    $orderId = $orderItem->get_order_id();
-
-    $newLog = new WWT_LogEntity(NULL, $productId, -$quantity, sprintf(__('Amout reduced because of order %d', 'woocommerce-warehouse-transactions'), $orderId), $orderId);
-    $newLog->save();
-
-    return $quantity;
-}
-add_action('woocommerce_order_item_quantity', 'wwt_create_log_reduce_quantity_after_order', 10, 3);
+add_action('woocommerce_restore_order_stock', 'wwt_create_log_restore_quantity');
 
 function wwt_create_log_restock($productId, $oldStock, $newStock, $order, $product) {
     $newLog = new WWT_LogEntity(NULL, $productId, $oldStock - $newStock, sprintf(__('Amout changed because of order %d was refunded', 'woocommerce-warehouse-transactions'), $order->id), $order->id);
