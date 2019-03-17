@@ -26,6 +26,8 @@ define('CONSUMPTION_TABLE', 'woocommerce_warehouse_transactions_consumption_tabl
 
 define('TABLE_VERSION', 'wwt_database_version');
 
+define('WWT_STOCK_REDUCED_FLAG', '_reduced_stock_logged');
+
 function woocommerce_warehouse_transactions_install () {
     global $wpdb;
     $wwt_database_version = '2.1';
@@ -227,12 +229,13 @@ function wwt_create_log_reduce_quantity($order) {
     $orderItems = $order->get_items();
     if (get_option('woocommerce_manage_stock') == 'yes' && sizeof($orderItems) > 0) {
         foreach ( $orderItems as $itemId => $orderItem ) {
-            $itemStockReduced = $orderItem->get_meta( '_reduced_stock_logged', true );
+            $itemStockReduced = $orderItem->get_meta( WWT_STOCK_REDUCED_FLAG, true );
             $product = $orderItem->get_product();
             if (!$itemStockReduced && $product && $product->exists() && $product->managing_stock()) {
                 $productId = $product->get_id();
                 $quantity = $orderItem->get_quantity();
-                $orderItem->add_meta_data( '_reduced_stock_logged', $qty, true );
+                $orderItem->add_meta_data( WWT_STOCK_REDUCED_FLAG, $quantity, true );
+                $orderItem->save();
 
                 $newLog = new WWT_LogEntity(NULL, $productId, -$quantity, sprintf(__('Amout reduced because of change in order %d.', 'woocommerce-warehouse-transactions'), $orderId), $orderId);
                 $newLog->save();
@@ -247,12 +250,13 @@ function wwt_create_log_restore_quantity($order) {
     $orderItems = $order->get_items();
     if (get_option('woocommerce_manage_stock') == 'yes' && sizeof($orderItems) > 0) {
         foreach ( $orderItems as $itemId => $orderItem ) {
-            $itemStockReduced = $orderItem->get_meta( '_reduced_stock_logged', true );
+            $itemStockReduced = $orderItem->get_meta( WWT_STOCK_REDUCED_FLAG, true );
             $product = $orderItem->get_product();
             if ($itemStockReduced && $product && $product->exists() && $product->managing_stock()) {
                 $productId = $product->get_id();
                 $quantity = $orderItem->get_quantity();
-                $orderItem->delete_meta_data( '_reduced_stock_logged' );
+                $orderItem->delete_meta_data( WWT_STOCK_REDUCED_FLAG );
+                $orderItem->save();
 
                 $newLog = new WWT_LogEntity(NULL, $productId, $quantity, sprintf(__('Amout restored because of change in order %d.', 'woocommerce-warehouse-transactions'), $orderId), $orderId);
                 $newLog->save();
@@ -267,6 +271,13 @@ function wwt_create_log_restock($productId, $oldStock, $newStock, $order, $produ
     $newLog->save();
 }
 add_action('woocommerce_restock_refunded_item', 'wwt_create_log_restock', 10, 5);
+
+function add_wwt_hidden_order_itemmeta($metaArray) {
+    array_push($metaArray, WWT_STOCK_REDUCED_FLAG);
+
+    return $metaArray;
+}
+add_filter('woocommerce_hidden_order_itemmeta', 'add_wwt_hidden_order_itemmeta');
 
 /******************************************************************************/
 /*              INCLUDES                                                      */
