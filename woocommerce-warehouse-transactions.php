@@ -2,7 +2,7 @@
 /**
  * Plugin Name: Woocommerce Warehouse Transactions
  * Description: Extension for woocommerce which keeps the track of warehouse changes.
- * Version: 2.0.7
+ * Version: 2.2.0
  * Author: Jan Herzan
  * Author URI: http://jan.herzan.com
  * Requires at least: 4.4
@@ -23,12 +23,14 @@ define('LOG_TABLE', 'woocommerce_warehouse_transactions_log_table');
 define('MATERIAL_LOG_TABLE', 'woocommerce_warehouse_transactions_material_log_table');
 define('MATERIAL_TABLE', 'woocommerce_warehouse_transactions_material_table');
 define('CONSUMPTION_TABLE', 'woocommerce_warehouse_transactions_consumption_table');
+define('CONSINMENT_LIST_TABLE', 'woocommerce_warehouse_transactions_consignment_list');
+define('CONSINMENT_LOG_TABLE', 'woocommerce_warehouse_transactions_consignment_log');
 
 define('TABLE_VERSION', 'wwt_database_version');
 
 function woocommerce_warehouse_transactions_install () {
     global $wpdb;
-    $wwt_database_version = '2.1';
+    $wwt_database_version = '2.2';
 
     $actualVersion = get_option(TABLE_VERSION, '');
 
@@ -37,12 +39,40 @@ function woocommerce_warehouse_transactions_install () {
     $consumptionTable = $wpdb->prefix . CONSUMPTION_TABLE;
     $materialLogTable = $wpdb->prefix . MATERIAL_LOG_TABLE;
 
+    $consignmentListTable = $wpdb->prefix . CONSINMENT_LIST_TABLE;
+    $consignmentLogTable = $wpdb->prefix . CONSINMENT_LOG_TABLE;
+
     if ($actualVersion !== $wwt_database_version) {
 
             $charset_collate = $wpdb->get_charset_collate();
 
             $sqlLogTable = "CREATE TABLE $logTable (
                 id mediumint(9) NOT NULL AUTO_INCREMENT,
+                userId mediumint(9) NULL,
+                productId mediumint(9) NOT NULL,
+                difference int NOT NULL,
+                orderId mediumint(9) NULL,
+                notes text DEFAULT '' NOT NULL,
+                insertedAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+                newValue mediumint(9) NULL,
+                PRIMARY KEY  (id)
+            )
+            ENGINE=InnoDB
+            $charset_collate;";
+
+            $sqlConsinmentListTable = "CREATE TABLE $consignmentListTable (
+                id mediumint(9) NOT NULL AUTO_INCREMENT,
+                name varchar(100) NOT NULL,
+                description text DEFAULT '' NOT NULL,
+                insertedAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+                PRIMARY KEY  (id)
+            )
+            ENGINE=InnoDB
+            $charset_collate;";
+
+            $sqlConsinmentLogTable = "CREATE TABLE $consignmentLogTable (
+                id mediumint(9) NOT NULL AUTO_INCREMENT,
+                consignmentListId mediumint(9) NULL,
                 userId mediumint(9) NULL,
                 productId mediumint(9) NOT NULL,
                 difference int NOT NULL,
@@ -94,6 +124,8 @@ function woocommerce_warehouse_transactions_install () {
 
             require_once(ABSPATH . 'wp-admin/includes/upgrade.php');
             dbDelta($sqlLogTable);
+            dbDelta($sqlConsinmentListTable);
+            dbDelta($sqlConsinmentLogTable);
             dbDelta($sqlMaterialTable);
             dbDelta($sqlConsumptionTable);
             dbDelta($sqlMaterialLogTable);
