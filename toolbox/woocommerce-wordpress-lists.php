@@ -44,6 +44,21 @@ if (!function_exists('get_product_list')) {
     }
 }
 
+if (!function_exists('get_shipping_method_with_id')) {
+    function get_shipping_method_with_id($order) {
+        $shippingMethod = array_values($order->get_items( 'shipping'))[0]['method_id'];
+        $shippingMethodInstanceId = array_values($order->get_items( 'shipping'))[0]['instance_id'];
+
+        $shippingMethod = str_replace(":", "_", $shippingMethod);
+
+        if ($shippingMethodInstanceId != 0 && strpos($shippingMethod, $shippingMethodInstanceId) === FALSE) {
+            $shippingMethod .= '_' . $shippingMethodInstanceId;
+        }
+
+        return $shippingMethod;
+    }
+}
+
 if (!function_exists('get_page_list')) {
     function get_page_list() {
         $pages = get_pages();
@@ -80,6 +95,12 @@ if (!function_exists('get_orders_ids_in_state')) {
         }
 
         return $output;
+    }
+}
+
+if (!function_exists('get_order_notes')) {
+    function get_order_notes($order_id) {
+        return wc_get_order_notes( array( 'order_id' => $order_id ) );
     }
 }
 
@@ -147,6 +168,32 @@ if (!function_exists('get_shipping_methods')) {
     }
 }
 
+if (!function_exists('get_shipping_methods_for_list_selection')) {
+    if ($isWoocommerceActive) {
+        function get_shipping_methods_for_list_selection() {
+             $shippingMethods = get_shipping_methods();
+             $availableShippingZones = get_shipping_zones();
+
+             $shippingMethodsList = array();
+
+             foreach ($availableShippingZones as $shippingZone) {
+                 foreach ($shippingZone["shipping_methods"] as $shippingMethod) {
+                     $shippingMethodsList[$shippingMethod->id . '_' . $shippingMethod->instance_id] = $shippingMethod->title . ' (' . $shippingMethod->id . ':' . $shippingMethod->instance_id . ')';
+                 }
+             }
+
+             foreach($shippingMethods as $shippingMethod) {
+                 if ($shippingMethod->id == 'flat_rate' || $shippingMethod->id == 'free_shipping' || $shippingMethod->id == 'local_pickup') continue;
+                 $shippingMethodsList[$shippingMethod->id] = $shippingMethod->title;
+             }
+
+             return $shippingMethodsList;
+        }
+    } else {
+        function get_shipping_methods_for_list_selection() { return array(); }
+    }
+}
+
 if (!function_exists('get_payment_gateways')) {
     if ($isWoocommerceActive) {
         function get_payment_gateways() {
@@ -164,6 +211,15 @@ if (!function_exists('get_roles')) {
          global $wp_roles;
 
          return $wp_roles->get_names();
+    }
+}
+
+if (!function_exists('get_users_with_roles')) {
+    function get_users_with_roles($roles) {
+        $args = array(
+            'role__in'     => $roles
+         );
+         return get_users($args);
     }
 }
 
@@ -185,5 +241,45 @@ if (!function_exists('get_coupons')) {
         }
 
         return $couponsNames;
+    }
+}
+
+if (!function_exists('woo_cart_has_all_virtual_products')) {
+    if ($isWoocommerceActive) {
+        function woo_cart_has_all_virtual_products() {
+            $products = WC()->cart->get_cart();
+
+            foreach( $products as $product ) {
+              $product_id = $product['product_id'];
+              $is_virtual = get_post_meta( $product_id, '￼_virtual', true );
+
+              if( $is_virtual != 'yes' )
+                return false;
+            }
+
+            return true;
+        }
+    } else {
+        function woo_cart_has_all_virtual_products() { return false; }
+    }
+}
+
+if (!function_exists('woo_cart_has_all_giftcoupon_products')) {
+    if ($isWoocommerceActive) {
+        function woo_cart_has_all_giftcoupon_products() {
+            $products = WC()->cart->get_cart();
+
+            foreach( $products as $product ) {
+              $product_id = $product['product_id'];
+              $is_coupon = get_post_meta( $product_id, 'giftcoupon', true );
+
+              if( $is_coupon != 'yes' )
+                return false;
+            }
+
+            return true;
+        }
+    } else {
+        function woo_cart_has_all_giftcoupon_products() { return false; }
     }
 }
