@@ -1,5 +1,5 @@
 <?php
-$removedOrders = get_orders_ids_in_state(array("on-hold", "processing"));
+$ordersToCheck = get_orders_ids_in_state(array("on-hold", "processing"));
 
 $products = get_product_list();
 $productData = array();
@@ -16,9 +16,22 @@ foreach ($products as $product) {
     }
 }
 
+$removedOrders = [];
+$ignoredOrders = [];
 
-foreach ($removedOrders as $orderId => $orderStatus) {
+foreach ($ordersToCheck as $orderId => $orderStatus) {
     $order = wc_get_order( $orderId );
+
+    $shippingMethod = get_shipping_method_with_id($order);
+    $consignmentStockShippingMethods = get_general_property(CONSIGNMENT_STOCK_DELIVERY_METHODS);
+
+    if (in_array($shippingMethod, $consignmentStockShippingMethods)) {
+        $ignoredOrders[$orderId] = $orderStatus;
+        continue;
+    }
+
+    $removedOrders[$orderId] = $orderStatus;
+
     foreach ($order->get_items() as $itemId => $itemData) {
         $orderProduct = $itemData->get_product();
         $orderProductId = $orderProduct->get_id();
@@ -80,6 +93,26 @@ foreach ($removedOrders as $orderId => $orderStatus) {
 
 <?php
     foreach ($removedOrders as $orderId => $orderStatus) {
+        echo '<tr><td>', $orderId, '</td><td>', $orderStatus, '</td></tr>';
+    }
+?>
+
+</table>
+
+<table class="insertion-small">
+    <tr>
+        <th colspan="2">
+            <?php _e('Orders which are not sent but ignored', 'woocommerce-warehouse-transactions'); ?><br>
+            <?php _e('These orders are shipped from consignment stock', 'woocommerce-warehouse-transactions'); ?>
+        </th>
+    </tr>
+    <tr>
+        <th><?php _e('Order Id', 'woocommerce-warehouse-transactions'); ?></th>
+        <th><?php _e('Order state', 'woocommerce-warehouse-transactions'); ?></th>
+    </tr>
+
+<?php
+    foreach ($ignoredOrders as $orderId => $orderStatus) {
         echo '<tr><td>', $orderId, '</td><td>', $orderStatus, '</td></tr>';
     }
 ?>
