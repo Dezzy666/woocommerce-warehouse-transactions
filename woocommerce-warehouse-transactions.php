@@ -25,6 +25,7 @@ define('MATERIAL_TABLE', 'woocommerce_warehouse_transactions_material_table');
 define('CONSUMPTION_TABLE', 'woocommerce_warehouse_transactions_consumption_table');
 define('CONSINMENT_LIST_TABLE', 'woocommerce_warehouse_transactions_consignment_list');
 define('CONSINMENT_LOG_TABLE', 'woocommerce_warehouse_transactions_consignment_log');
+define('CONSINMENT_PRODUCT_TABLE', 'woocommerce_warehouse_transactions_consignment_products');
 
 define('TABLE_VERSION', 'wwt_database_version');
 
@@ -43,6 +44,7 @@ function woocommerce_warehouse_transactions_install () {
 
     $consignmentListTable = $wpdb->prefix . CONSINMENT_LIST_TABLE;
     $consignmentLogTable = $wpdb->prefix . CONSINMENT_LOG_TABLE;
+    $consignmentProductTable = $wpdb->prefix . CONSINMENT_PRODUCT_TABLE;
 
     if ($actualVersion !== $wwt_database_version) {
 
@@ -66,6 +68,7 @@ function woocommerce_warehouse_transactions_install () {
                 id mediumint(9) NOT NULL AUTO_INCREMENT,
                 name varchar(100) NOT NULL,
                 description text DEFAULT '' NOT NULL,
+                paymentMethods text DEFAULT '' NOT NULL,
                 insertedAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
                 PRIMARY KEY  (id)
             )
@@ -82,6 +85,17 @@ function woocommerce_warehouse_transactions_install () {
                 notes text DEFAULT '' NOT NULL,
                 insertedAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
                 newValue mediumint(9) NULL,
+                PRIMARY KEY  (id)
+            )
+            ENGINE=InnoDB
+            $charset_collate;";
+
+            $sqlConsignmentProductTable = "CREATE TABLE $consignmentProductTable (
+                id mediumint(9) NOT NULL AUTO_INCREMENT,
+                consignmentListId mediumint(9) NULL,
+                productId mediumint(9) NOT NULL,
+                quantity int NOT NULL,
+                lastUpdate TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
                 PRIMARY KEY  (id)
             )
             ENGINE=InnoDB
@@ -128,6 +142,7 @@ function woocommerce_warehouse_transactions_install () {
             dbDelta($sqlLogTable);
             dbDelta($sqlConsinmentListTable);
             dbDelta($sqlConsinmentLogTable);
+            dbDelta($sqlConsignmentProductTable);
             dbDelta($sqlMaterialTable);
             dbDelta($sqlConsumptionTable);
             dbDelta($sqlMaterialLogTable);
