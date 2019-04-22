@@ -23,10 +23,15 @@ function wwt_setup_execution_menu() {
     add_submenu_page( 'wwt_menu', __('Stock overview', 'woocommerce-warehouse-transactions'), __('Stock overview', 'woocommerce-warehouse-transactions'), 'wwt_rights', 'stock_overview_page', 'wwt_view_stock_overview_page');
     add_submenu_page( 'wwt_menu', __('Recepies overview', 'woocommerce-warehouse-transactions'), __('Recepies overview', 'woocommerce-warehouse-transactions'), 'wwt_recepies_rights', 'recepies_page', 'wwt_view_recepies_page');
     add_submenu_page( 'wwt_menu', __('Material overview', 'woocommerce-warehouse-transactions'), __('Material overview', 'woocommerce-warehouse-transactions'), 'wwt_recepies_rights', 'material_page', 'wwt_view_material_page');
+    add_submenu_page( 'wwt_menu', __('Consignment stock management', 'woocommerce-warehouse-transactions'), __('Consignment stock management', 'woocommerce-warehouse-transactions'), 'manage_options', 'consignment_management', 'wwt_view_consignment_management');
 
     add_options_page( __('WWT settings', 'woocommerce-warehouse-transactions'), __('WWT settings', 'woocommerce-warehouse-transactions'), 'manage_options', 'woocommerce-warehouse-transactions', 'wwt_view_settings_page');
 }
 add_action( 'admin_menu', 'wwt_setup_execution_menu' );
+
+function wwt_view_consignment_management($param) {
+    include 'consignment-management.php';
+}
 
 function wwt_view_execution_page($param) {
     include 'main-page.php';
