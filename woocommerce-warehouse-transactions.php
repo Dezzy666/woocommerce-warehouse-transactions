@@ -84,7 +84,6 @@ function woocommerce_warehouse_transactions_install () {
                 orderId mediumint(9) NULL,
                 notes text DEFAULT '' NOT NULL,
                 insertedAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-                newValue mediumint(9) NULL,
                 PRIMARY KEY  (id)
             )
             ENGINE=InnoDB
@@ -94,7 +93,7 @@ function woocommerce_warehouse_transactions_install () {
                 id mediumint(9) NOT NULL AUTO_INCREMENT,
                 consignmentListId mediumint(9) NULL,
                 productId mediumint(9) NOT NULL,
-                quantity int NOT NULL,
+                quantity int NOT NULL DEFAULT 0,
                 lastUpdate TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
                 PRIMARY KEY  (id)
             )
