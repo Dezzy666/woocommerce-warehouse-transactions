@@ -332,7 +332,7 @@ add_filter('woocommerce_hidden_order_itemmeta', 'add_wwt_hidden_order_itemmeta')
 /*              CONSIGNMENT STOCK LOGIC                                       */
 /******************************************************************************/
 
-function wwt_perform_consignment_stocks_change($status, $order, $koeficient) {
+function wwt_perform_consignment_stocks_increase($status, $order) {
     $shippingMethod = get_shipping_method_with_id($order);
     $consignmentStocks = WWT_ConsignmentEntity::get_all();
 
@@ -340,16 +340,21 @@ function wwt_perform_consignment_stocks_change($status, $order, $koeficient) {
         $consignmentStockShippingMethods = explode(FIELDS_SEPARATOR, $consignment->paymentMethods);
 
         if (in_array($shippingMethod, $consignmentStockShippingMethods)) {
-            $order->add_order_note(printf(__('Goods were taken from consignment stock [%s]. No main warehouse changes.', 'medinatur_v3'), $consignment->name));
+            $order->add_order_note(sprintf(__('Goods were taken from consignment stock [%s]. No main warehouse changes.', 'medinatur_v3'), $consignment->name));
 
             $products = $order->get_items();
 
             foreach ($products as $product) {
-                $quantity = $product->get_quantity();
-                $productId = $product->get_product_id();
-                WWT_ConsignmentEntity::update_product($consignment->id, $productId, $koeficient * $quantity);
-                $logEntry = new WWT_ConsignmentLogEntity($consignment->id, NULL, $productId, $koeficient * $quantity, sprintf(__('Amout changed because of change in order %d.', 'woocommerce-warehouse-transactions'), $order->id), $order->id);
-                $logEntry->save();
+                $itemStockReduced = $product->get_meta( WWT_STOCK_REDUCED_FLAG, true );
+
+                if (!$itemStockReduced && $product && $product->exists()) {
+                    $quantity = $product->get_quantity();
+                    $productId = $product->get_product_id();
+                    WWT_ConsignmentEntity::update_product($consignment->id, $productId, -$quantity);
+                    $logEntry = new WWT_ConsignmentLogEntity($consignment->id, NULL, $productId, -$quantity, sprintf(__('Amout reduced because of change in order %d.', 'woocommerce-warehouse-transactions'), $order->id), $order->id);
+                    $logEntry->save();
+                    $product->add_meta_data( WWT_STOCK_REDUCED_FLAG, $quantity, true );
+                }
             }
 
             $status = false;
@@ -358,14 +363,38 @@ function wwt_perform_consignment_stocks_change($status, $order, $koeficient) {
 
     return $status;
 }
-
-function wwt_perform_consignment_stocks_increase($status, $order) {
-    return wwt_perform_consignment_stocks_change($status, $order, 1);
-}
 add_filter('woocommerce_can_reduce_order_stock', 'wwt_perform_consignment_stocks_increase', 10, 2);
 
 function wwt_perform_consignment_stocks_decrease($status, $order) {
-    return wwt_perform_consignment_stocks_change($status, $order, -1);
+    $shippingMethod = get_shipping_method_with_id($order);
+    $consignmentStocks = WWT_ConsignmentEntity::get_all();
+
+    foreach ($consignmentStocks as $consignment) {
+        $consignmentStockShippingMethods = explode(FIELDS_SEPARATOR, $consignment->paymentMethods);
+
+        if (in_array($shippingMethod, $consignmentStockShippingMethods)) {
+            $order->add_order_note(sprintf(__('Goods were taken from consignment stock [%s]. No main warehouse changes.', 'medinatur_v3'), $consignment->name));
+
+            $products = $order->get_items();
+
+            foreach ($products as $product) {
+                $itemStockReduced = $product->get_meta( WWT_STOCK_REDUCED_FLAG, true );
+
+                if ($itemStockReduced && $product && $product->exists()) {
+                    $quantity = $product->get_quantity();
+                    $productId = $product->get_product_id();
+                    WWT_ConsignmentEntity::update_product($consignment->id, $productId, $quantity);
+                    $logEntry = new WWT_ConsignmentLogEntity($consignment->id, NULL, $productId, $quantity, sprintf(__('Amout restored because of change in order %d.', 'woocommerce-warehouse-transactions'), $order->id), $order->id);
+                    $logEntry->save();
+                    $product->delete_meta_data( WWT_STOCK_REDUCED_FLAG );
+                }
+            }
+
+            $status = false;
+        }
+    }
+
+    return $status;
 }
 add_filter('woocommerce_can_restore_order_stock', 'wwt_perform_consignment_stocks_decrease', 10, 2);
 
