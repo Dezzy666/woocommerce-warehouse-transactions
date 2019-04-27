@@ -17,6 +17,8 @@ define('WWT_PLUGIN_PATH', __FILE__);
 include_once(__DIR__ . '/objects/wwt-log-entity.php');
 include_once(__DIR__ . '/objects/wwt-material-entity.php');
 include_once(__DIR__ . '/objects/wwt-consumption-entity.php');
+include_once(__DIR__ . '/objects/wwt-consignment-entity.php');
+include_once(__DIR__ . '/objects/wwt-consignment-log-entity.php');
 
 
 define('LOG_TABLE', 'woocommerce_warehouse_transactions_log_table');
@@ -33,7 +35,7 @@ define('WWT_STOCK_REDUCED_FLAG', '_reduced_stock_logged');
 
 function woocommerce_warehouse_transactions_install () {
     global $wpdb;
-    $wwt_database_version = '2.2';
+    $wwt_database_version = '2.2a';
 
     $actualVersion = get_option(TABLE_VERSION, '');
 
@@ -77,7 +79,7 @@ function woocommerce_warehouse_transactions_install () {
 
             $sqlConsinmentLogTable = "CREATE TABLE $consignmentLogTable (
                 id mediumint(9) NOT NULL AUTO_INCREMENT,
-                consignmentListId mediumint(9) NULL,
+                consignmentListId mediumint(9) NOT NULL,
                 userId mediumint(9) NULL,
                 productId mediumint(9) NOT NULL,
                 difference int NOT NULL,
@@ -91,11 +93,12 @@ function woocommerce_warehouse_transactions_install () {
 
             $sqlConsignmentProductTable = "CREATE TABLE $consignmentProductTable (
                 id mediumint(9) NOT NULL AUTO_INCREMENT,
-                consignmentListId mediumint(9) NULL,
+                consignmentListId mediumint(9) NOT NULL,
                 productId mediumint(9) NOT NULL,
                 quantity int NOT NULL DEFAULT 0,
                 lastUpdate TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-                PRIMARY KEY  (id)
+                PRIMARY KEY  (id),
+                UNIQUE KEY  (consignmentListId,productId)
             )
             ENGINE=InnoDB
             $charset_collate;";
@@ -324,6 +327,47 @@ function add_wwt_hidden_order_itemmeta($metaArray) {
     return $metaArray;
 }
 add_filter('woocommerce_hidden_order_itemmeta', 'add_wwt_hidden_order_itemmeta');
+
+/******************************************************************************/
+/*              CONSIGNMENT STOCK LOGIC                                       */
+/******************************************************************************/
+
+function wwt_perform_consignment_stocks_change($status, $order, $koeficient) {
+    $shippingMethod = get_shipping_method_with_id($order);
+    $consignmentStocks = WWT_ConsignmentEntity::get_all();
+
+    foreach ($consignmentStocks as $consignment) {
+        $consignmentStockShippingMethods = explode(FIELDS_SEPARATOR, $consignment->paymentMethods);
+
+        if (in_array($shippingMethod, $consignmentStockShippingMethods)) {
+            $order->add_order_note(printf(__('Goods were taken from consignment stock [%s]. No main warehouse changes.', 'medinatur_v3'), $consignment->name));
+
+            $products = $order->get_items();
+
+            foreach ($products as $product) {
+                $quantity = $product->get_quantity();
+                $productId = $product->get_product_id();
+                WWT_ConsignmentEntity::update_product($consignment->id, $productId, $koeficient * $quantity);
+                $logEntry = new WWT_ConsignmentLogEntity($consignment->id, NULL, $productId, $koeficient * $quantity, sprintf(__('Amout changed because of change in order %d.', 'woocommerce-warehouse-transactions'), $order->id), $order->id);
+                $logEntry->save();
+            }
+
+            $status = false;
+        }
+    }
+
+    return $status;
+}
+
+function wwt_perform_consignment_stocks_increase($status, $order) {
+    return wwt_perform_consignment_stocks_change($status, $order, 1);
+}
+add_filter('woocommerce_can_reduce_order_stock', 'wwt_perform_consignment_stocks_increase', 10, 2);
+
+function wwt_perform_consignment_stocks_decrease($status, $order) {
+    return wwt_perform_consignment_stocks_change($status, $order, -1);
+}
+add_filter('woocommerce_can_restore_order_stock', 'wwt_perform_consignment_stocks_decrease', 10, 2);
 
 /******************************************************************************/
 /*              INCLUDES                                                      */

@@ -72,16 +72,13 @@ class WWT_ConsignmentEntity {
         $productTable = $wpdb->prefix . CONSINMENT_PRODUCT_TABLE;
 
         $wpdb->query("START TRANSACTION");
-        $wpdb->query("IF(NOT EXISTS(
-                SELECT *
-                FROM $productTable
-                WHERE `productId` =  ? ), $productId) THEN
-                    INSERT INTO $productId
+        $wpdb->query("
+                    INSERT INTO $productTable
                         (`consignmentListId`, `productId`)
                         VALUES
-                        ($consignmentId, $productId);
-                END");
-        $wpdf->query("UPDATE $productTable
+                        ($consignmentId, $productId)
+                        ON DUPLICATE KEY UPDATE productId=productId;");
+        $wpdb->query("UPDATE $productTable
                         SET quantity = quantity + $diff
                         WHERE productId = $productId AND consignmentListId = $consignmentId
                     ");

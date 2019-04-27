@@ -47,8 +47,7 @@ class WWT_ConsignmentLogEntity {
                 'productId' => $this->productId,
                 'difference' => $this->difference,
                 'notes' => $this->notes,
-                'orderId' => $this->orderId,
-                'newValue' => $currentStock
+                'orderId' => $this->orderId
             )
         );
     }
