@@ -7,7 +7,7 @@ if (!defined('ABSPATH')) {
 /**
  * Object which represents one log entity for consignment storage.
  *
- * @class      WWT_LogEntity
+ * @class      WWT_ConsignmentEntity
  * @author     Jan Herzan
  */
 
@@ -52,6 +52,19 @@ class WWT_ConsignmentEntity {
 
         $result = $wpdb->get_results( "SELECT * FROM $tableName ORDER BY id", OBJECT );
         return $result;
+    }
+
+    public static function set_payment_methods($consignmentId, $paymentMethods) {
+        global $wpdb;
+        $tableName = $wpdb->prefix . CONSINMENT_LIST_TABLE;
+
+        $wpdb->update(
+            $tableName, 
+            array( 
+                'paymentMethods' => $paymentMethods    // string
+            ),
+            array( 'ID' => $consignmentId )
+        );
     }
 
     public static function update_product($consignmentId, $productId, $diff) {

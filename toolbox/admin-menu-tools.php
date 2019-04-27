@@ -2,7 +2,7 @@
 include_once('properties-handling.php');
 
 if (!function_exists('print_select_component')) {
-    function print_select_component($mainSign, $product_categories, $key, $alreadySelectedValues = null) {
+    function print_select_component($mainSign, $selectableUniverse, $key, $alreadySelectedValues = null) {
         if ($alreadySelectedValues == null) {
             $pieces = get_general_property($key);
         } else {
@@ -13,10 +13,18 @@ if (!function_exists('print_select_component')) {
         if ($mainSign != null) {
             echo '<h2>', $mainSign, '</h2>';
         }
+
+        print_nonlinked_select_component($key, $selectableUniverse, $pieces);
+        echo '</div>';
+    }
+}
+
+if (!function_exists('print_nonlinked_select_component')) {
+    function print_nonlinked_select_component($key, $selectableUniverse, $selectedValues) {
         echo '<input type="hidden" id="', $key,'" name="', $key,'">';
         echo '<select multiple="multiple" id="', $key,'_select" style="width: 400px;" class="multiselectFields">';
-        foreach ($product_categories as $name => $sign) {
-            if (in_array($name, $pieces)) {
+        foreach ($selectableUniverse as $name => $sign) {
+            if (in_array($name, $selectedValues)) {
                 echo '<option value="',$name,'" selected="selected">',$sign,'</option>';
             } else {
                 echo '<option value="',$name,'">',$sign,'</option>';
@@ -40,7 +48,6 @@ if (!function_exists('print_select_component')) {
             });
         </script>
         <?php
-        echo '</div>';
     }
 }
 

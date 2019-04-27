@@ -31,6 +31,7 @@ add_action( 'admin_menu', 'wwt_setup_execution_menu' );
 
 function wwt_view_consignment_management($param) {
     include 'consignment-management.php';
+    include 'admin-page-styles.php';
 }
 
 function wwt_view_execution_page($param) {
