@@ -79,7 +79,7 @@ class WWT_ConsignmentEntity {
                         ($consignmentId, $productId)
                         ON DUPLICATE KEY UPDATE productId=productId;");
         $wpdb->query("UPDATE $productTable
-                        SET quantity = quantity + $diff
+                        SET quantity = quantity + $diff, lastUpdate = NOW()
                         WHERE productId = $productId AND consignmentListId = $consignmentId
                     ");
         $wpdb->query("COMMIT"); // if you come here then well done
