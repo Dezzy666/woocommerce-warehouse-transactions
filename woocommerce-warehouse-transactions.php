@@ -347,13 +347,14 @@ function wwt_perform_consignment_stocks_increase($status, $order) {
             foreach ($products as $product) {
                 $itemStockReduced = $product->get_meta( WWT_STOCK_REDUCED_FLAG, true );
 
-                if (!$itemStockReduced && $product && $product->exists()) {
+                if (!$itemStockReduced) {
                     $quantity = $product->get_quantity();
                     $productId = $product->get_product_id();
                     WWT_ConsignmentEntity::update_product($consignment->id, $productId, -$quantity);
                     $logEntry = new WWT_ConsignmentLogEntity($consignment->id, NULL, $productId, -$quantity, sprintf(__('Amout reduced because of change in order %d.', 'woocommerce-warehouse-transactions'), $order->id), $order->id);
                     $logEntry->save();
                     $product->add_meta_data( WWT_STOCK_REDUCED_FLAG, $quantity, true );
+                    $product->save();
                 }
             }
 
@@ -380,13 +381,14 @@ function wwt_perform_consignment_stocks_decrease($status, $order) {
             foreach ($products as $product) {
                 $itemStockReduced = $product->get_meta( WWT_STOCK_REDUCED_FLAG, true );
 
-                if ($itemStockReduced && $product && $product->exists()) {
+                if ($itemStockReduced) {
                     $quantity = $product->get_quantity();
                     $productId = $product->get_product_id();
                     WWT_ConsignmentEntity::update_product($consignment->id, $productId, $quantity);
                     $logEntry = new WWT_ConsignmentLogEntity($consignment->id, NULL, $productId, $quantity, sprintf(__('Amout restored because of change in order %d.', 'woocommerce-warehouse-transactions'), $order->id), $order->id);
                     $logEntry->save();
                     $product->delete_meta_data( WWT_STOCK_REDUCED_FLAG );
+                    $product->save();
                 }
             }
 
