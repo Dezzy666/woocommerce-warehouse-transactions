@@ -25,6 +25,9 @@ function wwt_log_transformer($logNodes) {
         $node["difference"] = $logNode->difference;
         $node["note"] = $logNode->notes;
         $node["inserted-at"] = $logNode->insertedAt;
+        if (isset($logNode->name)) {
+            $node["consignment-name"] = $logNode->name;
+        }
         array_push($transformedData, $node);
     }
 

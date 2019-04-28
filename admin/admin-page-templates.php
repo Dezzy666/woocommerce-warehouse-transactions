@@ -16,6 +16,20 @@ function create_insertion_fields($prefix, $showCheckbox = false) {
     <?php
 }
 
+function create_select_for_consignment_stocks() {
+    ?>
+    <select class="consignment-select" id="consignment-id" name="consignment-id">
+    <?php
+        $consignments = WWT_ConsignmentEntity::get_all();
+
+        foreach ($consignments as $consignment) {
+            echo '<option value="', $consignment->id,'">', apply_filters('wwt_main_page_dropdown_option_consignment', $consignment->name, $consignment),'</option>';
+        }
+    ?>
+    </select>
+    <?php
+}
+
 function create_select_for_products() {
     ?>
     <select class="product-select" id="product-id" name="product-id">
@@ -81,11 +95,11 @@ function create_code_search_dialog() {
     <?php
 }
 
-function create_paging_buttons() {
+function create_paging_buttons($colspan) {
     ?>
         <tr class="last">
             <td class="newer"><input type="button" id="wwt-newer" value="< <?php _e('Newer', 'woocommerce-warehouse-transactions');?>"></td>
-            <td colspan="3"></td>
+            <td colspan="<?php echo $colspan; ?>"></td>
             <td class="older"><input type="button" id="wwt-older" value="<?php _e('Older', 'woocommerce-warehouse-transactions');?> >"></td>
         <tr>
         <input type="hidden" id="wwt-page" value="0">

@@ -50,7 +50,7 @@ if(isset($_POST['product-quantity']) && isset($_POST['product-id'])) {
                     '</td></tr>';
             }
 
-            create_paging_buttons();
+            create_paging_buttons(3);
         ?>
 
     </table>

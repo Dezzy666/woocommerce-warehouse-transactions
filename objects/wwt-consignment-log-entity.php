@@ -55,18 +55,24 @@ class WWT_ConsignmentLogEntity {
     public static function get_last($number = 20) {
         global $wpdb;
         $tableName = $wpdb->prefix . CONSINMENT_LOG_TABLE;
+        $consignmentListTable = $wpdb->prefix . CONSINMENT_LIST_TABLE;
         $wpdb->show_errors();
 
-        $result = $wpdb->get_results( "SELECT * FROM $tableName ORDER BY id DESC LIMIT $number", OBJECT );
+        $result = $wpdb->get_results( "SELECT l.*, c.name FROM $tableName l
+            JOIN $consignmentListTable c ON l.consignmentListId = c.Id
+            ORDER BY l.id DESC LIMIT $number", OBJECT );
         return $result;
     }
 
     public static function get_page($page = 0, $pageSize = 20) {
         global $wpdb;
         $tableName = $wpdb->prefix . CONSINMENT_LOG_TABLE;
+        $consignmentListTable = $wpdb->prefix . CONSINMENT_LIST_TABLE;
         $offset = $page * $pageSize;
 
-        $result = $wpdb->get_results( "SELECT * FROM $tableName ORDER BY id DESC LIMIT $pageSize OFFSET $offset", OBJECT );
+        $result = $wpdb->get_results( "SELECT l.*, c.name FROM $tableName l
+            JOIN $consignmentListTable c ON l.consignmentListId = c.Id
+            ORDER BY l.id DESC LIMIT $pageSize OFFSET $offset", OBJECT );
         return $result;
     }
 

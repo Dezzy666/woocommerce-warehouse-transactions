@@ -10,6 +10,12 @@ function wwt_save_stock_change($product, $productId, $quantity, $note) {
     $newLog->save();
 }
 
+function wwt_save_consignment_stock_change($consignmentId, $product, $productId, $quantity, $note) {
+    WWT_ConsignmentEntity::update_product($consignmentId, $productId, $quantity);
+    $newLog = new WWT_ConsignmentLogEntity($consignmentId, $userId, $productId, $quantity, $note);
+    $newLog->save();
+}
+
 function wwt_create_consumption_log($productId, $quantity, $userId, $note) {
     $consumptions = WWT_ConsumptionEntity::get_consumptions_for_product($productId);
 
