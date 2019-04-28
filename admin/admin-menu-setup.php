@@ -19,6 +19,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 function wwt_setup_execution_menu() {
     add_menu_page(__('WWT', 'woocommerce-warehouse-transactions'), __('WWT', 'woocommerce-warehouse-transactions'), 'wwt_rights', 'wwt_menu', 'wwt_view_execution_page', plugin_dir_url( __FILE__ ) . '../images/main-icon.png', 82 );
     add_submenu_page( 'wwt_menu', __('Warehouse', 'woocommerce-warehouse-transactions'), __('Warehouse', 'woocommerce-warehouse-transactions'), 'wwt_rights', 'wwt_menu');
+    add_submenu_page( 'wwt_menu', __('Consignment Warehouses', 'woocommerce-warehouse-transactions'), __('Consignment Warehouses', 'woocommerce-warehouse-transactions'), 'wwt_rights', 'consignment_stock_management', 'wwt_view_consignment_stock_management');
     add_submenu_page( 'wwt_menu', __('Material', 'woocommerce-warehouse-transactions'), __('Material', 'woocommerce-warehouse-transactions'), 'wwt_rights', 'material_log_page', 'wwt_view_material_log_page');
     add_submenu_page( 'wwt_menu', __('Stock overview', 'woocommerce-warehouse-transactions'), __('Stock overview', 'woocommerce-warehouse-transactions'), 'wwt_rights', 'stock_overview_page', 'wwt_view_stock_overview_page');
     add_submenu_page( 'wwt_menu', __('Recepies overview', 'woocommerce-warehouse-transactions'), __('Recepies overview', 'woocommerce-warehouse-transactions'), 'wwt_recepies_rights', 'recepies_page', 'wwt_view_recepies_page');
@@ -60,5 +61,10 @@ function wwt_view_material_log_page($param) {
 
 function wwt_view_stock_overview_page($param) {
     include 'stock-overview.php';
+    include 'admin-page-styles.php';
+}
+
+function wwt_view_consignment_stock_management($param) {
+    include 'consignment-stock-management.php';
     include 'admin-page-styles.php';
 }
