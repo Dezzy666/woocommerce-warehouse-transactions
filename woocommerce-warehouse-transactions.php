@@ -35,7 +35,7 @@ define('WWT_STOCK_REDUCED_FLAG', '_reduced_stock_logged');
 
 function woocommerce_warehouse_transactions_install () {
     global $wpdb;
-    $wwt_database_version = '2.2a';
+    $wwt_database_version = '2.3';
 
     $actualVersion = get_option(TABLE_VERSION, '');
 
@@ -98,7 +98,7 @@ function woocommerce_warehouse_transactions_install () {
                 quantity int NOT NULL DEFAULT 0,
                 lastUpdate TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
                 PRIMARY KEY  (id),
-                UNIQUE KEY  (consignmentListId,productId)
+                UNIQUE KEY consignment_list_unique_id (consignmentListId,productId)
             )
             ENGINE=InnoDB
             $charset_collate;";
