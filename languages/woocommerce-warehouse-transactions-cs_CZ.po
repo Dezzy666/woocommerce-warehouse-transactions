@@ -1,9 +1,9 @@
 msgid ""
 msgstr ""
-"Project-Id-Version: Woocommerce Warehouse Transactions v2.2.0\n"
+"Project-Id-Version: Woocommerce Warehouse Transactions v2.4.0\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2019-04-28 22:17:14+0000\n"
+"PO-Revision-Date: 2019-10-29 10:41:16+0000\n"
 "Last-Translator: dezzy <dezzy@seznam.cz>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -40,7 +40,7 @@ msgstr "Změna objednávkou"
 msgid "Warehouse movement log"
 msgstr "Změny ve skladu"
 
-#: admin/consignment-stock-management.php:24
+#: admin/consignment-stock-management.php:29
 #: admin/main-page.php:24
 #: admin/material-log.php:27
 #@ woocommerce-warehouse-transactions
@@ -55,7 +55,7 @@ msgid "Quantity"
 msgstr "Množství"
 
 #: admin/admin-page-templates.php:6
-#: admin/consignment-stock-management.php:41
+#: admin/consignment-stock-management.php:46
 #: admin/main-page.php:39
 #: admin/material-log.php:47
 #: admin/material-overview.php:14
@@ -64,24 +64,24 @@ msgstr "Množství"
 msgid "Note"
 msgstr "Poznámka"
 
-#: admin/admin-page-templates.php:13
+#: admin/admin-page-templates.php:19
 #@ woocommerce-warehouse-transactions
 msgid "+ value means added, - value means taken"
 msgstr "Kladné (+) hodnoty znamenají přírůstek ve skladu, záporné (-) znamenají úbytek"
 
-#: admin/admin-page-templates.php:15
+#: admin/admin-page-templates.php:21
 #@ woocommerce-warehouse-transactions
 msgid "Insert"
 msgstr "Vložit"
 
-#: admin/consignment-stock-management.php:34
+#: admin/consignment-stock-management.php:39
 #: admin/main-page.php:33
 #: admin/material-log.php:40
 #@ woocommerce-warehouse-transactions
 msgid "Last changes"
 msgstr "Nedávné změny"
 
-#: admin/consignment-stock-management.php:38
+#: admin/consignment-stock-management.php:43
 #: admin/main-page.php:36
 #: admin/material-log.php:45
 #: admin/recepies-overview.php:11
@@ -91,14 +91,14 @@ msgstr "Nedávné změny"
 msgid "Product name"
 msgstr "Název produktu"
 
-#: admin/consignment-stock-management.php:39
+#: admin/consignment-stock-management.php:44
 #: admin/main-page.php:37
 #: admin/material-log.php:44
 #@ woocommerce-warehouse-transactions
 msgid "User name"
 msgstr "Uživatel"
 
-#: admin/consignment-stock-management.php:40
+#: admin/consignment-stock-management.php:45
 #: admin/main-page.php:38
 #: admin/material-log.php:46
 #@ woocommerce-warehouse-transactions
@@ -134,19 +134,19 @@ msgstr ""
 msgid "WWT settings"
 msgstr "WWT nastavení"
 
-#: admin/consignment-stock-management.php:42
+#: admin/consignment-stock-management.php:47
 #: admin/main-page.php:40
 #: admin/material-log.php:48
 #@ woocommerce-warehouse-transactions
 msgid "Inserted at"
 msgstr "Vloženo"
 
-#: admin/admin-page-templates.php:101
+#: admin/admin-page-templates.php:107
 #@ woocommerce-warehouse-transactions
 msgid "Newer"
 msgstr "Novější"
 
-#: admin/admin-page-templates.php:103
+#: admin/admin-page-templates.php:109
 #@ woocommerce-warehouse-transactions
 msgid "Older"
 msgstr "Starší"
@@ -293,17 +293,17 @@ msgstr "Potřebné množství"
 msgid "Stock overview"
 msgstr "Přehled skladu"
 
-#: admin/admin-page-templates.php:61
+#: admin/admin-page-templates.php:67
 #@ woocommerce-warehouse-transactions
 msgid "Code search"
 msgstr "Vyhledávání čárového kódu"
 
-#: admin/admin-page-templates.php:62
+#: admin/admin-page-templates.php:68
 #@ woocommerce-warehouse-transactions
 msgid "Scane a code"
 msgstr "Naskenujte kód"
 
-#: admin/admin-page-templates.php:86
+#: admin/admin-page-templates.php:92
 #@ woocommerce-warehouse-transactions
 msgid "Code not recognized"
 msgstr "Čárový kód nebyl nalezen"
@@ -336,7 +336,7 @@ msgstr "Stav objednávky"
 msgid "Select all"
 msgstr ""
 
-#: admin/consignment-stock-management.php:25
+#: admin/consignment-stock-management.php:30
 #: admin/main-page.php:25
 #@ woocommerce-warehouse-transactions
 msgid "Find"
@@ -377,12 +377,12 @@ msgstr "Konsignační sklady"
 msgid "Consignment settings"
 msgstr "Nastavení konsignačních skladů"
 
-#: admin/consignment-stock-management.php:22
+#: admin/consignment-stock-management.php:27
 #@ woocommerce-warehouse-transactions
 msgid "Consignment stock movement log"
 msgstr "Pohyby zboží v konsignačních skladech"
 
-#: admin/consignment-stock-management.php:37
+#: admin/consignment-stock-management.php:42
 #@ woocommerce-warehouse-transactions
 msgid "Consignment name"
 msgstr "Název skladu"
@@ -407,16 +407,21 @@ msgstr "Objednávky, které nejsou odeslané, ale nespadají pod hlavní sklad"
 msgid "These orders are shipped from consignment stock"
 msgstr "Objednávky odeslány z konsignačního skladu"
 
-#. translators: plugin header field 'Version'
-#: woocommerce-warehouse-transactions.php:0
-#@ woocommerce-warehouse-transactions
-msgid "2.2.0"
-msgstr ""
-
 #: woocommerce-warehouse-transactions.php:343
 #: woocommerce-warehouse-transactions.php:377
 #, php-format
 #@ medinatur_v3
 msgid "Goods were taken from consignment stock [%s]. No main warehouse changes."
+msgstr ""
+
+#: admin/admin-page-templates.php:15
+#@ woocommerce-warehouse-transactions
+msgid "Take from main store"
+msgstr "Odebrat z hlavního skladu (Na Florenci)"
+
+#. translators: plugin header field 'Version'
+#: woocommerce-warehouse-transactions.php:0
+#@ woocommerce-warehouse-transactions
+msgid "2.4.0"
 msgstr ""
 
