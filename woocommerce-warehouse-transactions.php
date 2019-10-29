@@ -98,7 +98,7 @@ function woocommerce_warehouse_transactions_install () {
                 quantity int NOT NULL DEFAULT 0,
                 lastUpdate TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
                 PRIMARY KEY  (id),
-                UNIQUE KEY consignment_list_unique_id (consignmentListId,productId)
+                UNIQUE KEY  consignment_list_unique_id (consignmentListId,productId)
             )
             ENGINE=InnoDB
             $charset_collate;";
