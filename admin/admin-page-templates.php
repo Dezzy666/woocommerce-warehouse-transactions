@@ -1,14 +1,20 @@
 <?php
 
-function create_insertion_fields($prefix, $showCheckbox = false) {
+function create_insertion_fields($prefix, $showMaterialCheckbox = false, $showMainStoreCheckbox = false) {
     ?>
     <label for="<?php echo $prefix; ?>-quantity"><?php _e('Quantity', 'woocommerce-warehouse-transactions'); ?></label><input type="number" id="<?php echo $prefix; ?>-quantity" name="<?php echo $prefix; ?>-quantity">
     <label for="<?php echo $prefix; ?>-note"><?php _e('Note', 'woocommerce-warehouse-transactions'); ?></label><input type="text" id="note" name="note">
 
-    <?php if ($showCheckbox) { ?>
+    <?php if ($showMaterialCheckbox) { ?>
         <input type="checkbox" name="apply-material-change" id="apply-material-change">
         <label for="apply-material-change"><?php _e('Apply material changes', 'woocommerce-warehouse-transactions'); ?></label>
     <?php } ?>
+
+    <?php if ($showMainStoreCheckbox) { ?>
+        <input type="checkbox" name="take-from-main-store" id="take-from-main-store">
+        <label for="take-from-main-store"><?php _e('Take from main store', 'woocommerce-warehouse-transactions'); ?></label>
+    <?php } ?>
+
     <div>
         <?php _e('+ value means added, - value means taken', 'woocommerce-warehouse-transactions'); ?>
     </div>

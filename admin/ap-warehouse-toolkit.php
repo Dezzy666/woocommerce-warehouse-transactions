@@ -5,12 +5,14 @@ include_once(__DIR__ . '/../objects/wwt-material-log-entity.php');
 include_once(__DIR__ . '/../objects/wwt-consumption-entity.php');
 
 function wwt_save_stock_change($product, $productId, $quantity, $note) {
+    $userId = get_current_user_id();
     wwt_update_product_stock($product, $quantity);
     $newLog = new WWT_LogEntity($userId, $productId, $quantity, $note);
     $newLog->save();
 }
 
 function wwt_save_consignment_stock_change($consignmentId, $product, $productId, $quantity, $note) {
+    $userId = get_current_user_id();
     WWT_ConsignmentEntity::update_product($consignmentId, $productId, $quantity);
     $newLog = new WWT_ConsignmentLogEntity($consignmentId, $userId, $productId, $quantity, $note);
     $newLog->save();

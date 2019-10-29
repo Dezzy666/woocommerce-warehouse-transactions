@@ -13,6 +13,11 @@ if(isset($_POST['product-quantity']) && isset($_POST['product-id'])) {
         wwt_save_consignment_stock_change($_POST['consignment-id'], $product, $_POST['product-id'], $_POST['product-quantity'], $_POST['note']);
     }
 
+    if ($product && is_numeric($_POST['product-quantity']) && isset($_POST["take-from-main-store"]) && $_POST["take-from-main-store"]) {
+        //// Save change to main warehouse
+        wwt_save_stock_change($product, $_POST['product-id'], -1 * $_POST['product-quantity'], $_POST['note']);
+    }
+
     if ($_POST['product-quantity'] > 0 && isset($_POST['apply-material-change']) && $_POST['apply-material-change']) {
         wwt_create_consumption_log($_POST['product-id'], $_POST['product-quantity'], $userId, $_POST['note']);
     }
@@ -26,7 +31,7 @@ if(isset($_POST['product-quantity']) && isset($_POST['product-id'])) {
     <form method="post">
         <?php create_select_for_consignment_stocks(); ?>
         <?php create_select_for_products(); ?>
-        <?php create_insertion_fields("product", true); ?>
+        <?php create_insertion_fields("product", false, true); ?>
     </form>
 </div>
 
