@@ -187,6 +187,8 @@ function wwt_add_capability_to_admin() {
     $role_object = wp_roles()->get_role('administrator');
     $role_object->add_cap('wwt_rights');
     $role_object->add_cap('wwt_recepies_rights');
+
+    $role_object->add_cap('wwt_rest_add_records');
 }
 add_action('admin_init', 'wwt_add_capability_to_admin');
 
@@ -413,3 +415,5 @@ include 'toolbox/admin-menu-tools.php';
 include 'toolbox/aggregated-information.php';
 include 'toolbox/properties-handling.php';
 include 'toolbox/woocommerce-wordpress-lists.php';
+
+include 'rest/warehouse-rest-endpoint.php';
