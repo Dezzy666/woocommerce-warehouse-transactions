@@ -402,6 +402,59 @@ function wwt_perform_consignment_stocks_decrease($status, $order) {
 }
 add_filter('woocommerce_can_restore_order_stock', 'wwt_perform_consignment_stocks_decrease', 10, 2);
 
+function wwt_calculate_current_stock() {
+    $ordersToCheck = get_orders_ids_in_state(array("on-hold", "processing"));
+
+    $products = get_product_list();
+    $productData = array();
+
+    foreach ($products as $product) {
+        $wcProduct = wc_get_product($product->ID);
+        if ($wcProduct->get_manage_stock()) {
+            $productData[$product->ID] = (object)
+                [
+                    'name' => apply_filters('wwt_main_page_product_name_column', $wcProduct->get_title(), $wcProduct),
+                    'qty' => $wcProduct->get_stock_quantity(),
+                    'initialQty' => $wcProduct->get_stock_quantity()
+                ];
+        }
+    }
+
+    $removedOrders = [];
+    $ignoredOrders = [];
+
+    foreach ($ordersToCheck as $orderId => $orderStatus) {
+        $order = wc_get_order( $orderId );
+
+        $shippingMethod = get_shipping_method_with_id($order);
+        $consignmentStockShippingMethods = get_general_property(CONSIGNMENT_STOCK_DELIVERY_METHODS);
+
+        if (in_array($shippingMethod, $consignmentStockShippingMethods)) {
+            $ignoredOrders[$orderId] = $orderStatus;
+            continue;
+        }
+
+        $removedOrders[$orderId] = $orderStatus;
+
+        foreach ($order->get_items() as $itemId => $itemData) {
+            $orderProduct = $itemData->get_product();
+            $orderProductId = $orderProduct->get_id();
+            $itemQuantity = $itemData->get_quantity();
+
+            if ($orderProduct->get_manage_stock()
+                && array_search($orderProductId, $productData) !== NULL) {
+                $productData[$orderProductId]->qty += $itemQuantity;
+            }
+        }
+    }
+
+    return array(
+        "productData" => $productData,
+        "removedOrders" => $removedOrders,
+        "ignoredOrders" => $ignoredOrders
+    );
+}
+
 /******************************************************************************/
 /*              INCLUDES                                                      */
 /******************************************************************************/
