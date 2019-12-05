@@ -22,6 +22,7 @@ CALL :cloneFolder "js"
 CALL :cloneFolder "languages"
 CALL :cloneFolder "libs"
 CALL :cloneFolder "objects"
+CALL :cloneFolder "rest"
 CALL :cloneFolder "toolbox"
 CALL :cloneFolder "updater"
 
