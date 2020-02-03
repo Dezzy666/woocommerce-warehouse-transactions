@@ -149,7 +149,7 @@ function woocommerce_warehouse_transactions_install () {
             dbDelta($sqlConsumptionTable);
             dbDelta($sqlMaterialLogTable);
 
-            add_option(TABLE_VERSION, $wwt_database_version);
+            update_option(TABLE_VERSION, $wwt_database_version);
     }
 }
 add_action('plugins_loaded', 'woocommerce_warehouse_transactions_install');
@@ -272,7 +272,7 @@ function wwt_get_user_name($userId) {
 
 function wwt_get_product_name($productId) {
     $product = wc_get_product($productId);
-    return $product->get_title();
+    return $product ? $product->get_title() : __('Product has been removed', 'woocommerce-warehouse-transactions');
 }
 
 function wwt_create_log_reduce_quantity($order) {
@@ -438,6 +438,8 @@ function wwt_calculate_current_stock() {
 
         foreach ($order->get_items() as $itemId => $itemData) {
             $orderProduct = $itemData->get_product();
+            if (!$orderProduct) continue; //// Product no longer exists
+
             $orderProductId = $orderProduct->get_id();
             $itemQuantity = $itemData->get_quantity();
 
