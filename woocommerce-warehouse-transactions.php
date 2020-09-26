@@ -472,3 +472,5 @@ include 'toolbox/properties-handling.php';
 include 'toolbox/woocommerce-wordpress-lists.php';
 
 include 'rest/warehouse-rest-endpoint.php';
+
+include 'inc/stock-disabling-operations.php';
