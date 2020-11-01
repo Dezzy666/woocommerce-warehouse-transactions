@@ -10,6 +10,7 @@ function wwt_stock_whitepanel_content($post) {
     <table>
         <tr>
             <th><?php _e('Product name', 'woocommerce-warehouse-transactions'); ?></th>
+            <th><?php _e('Total quantity', 'woocommerce-warehouse-transactions'); ?></th>
             <th><?php _e('Quantity', 'woocommerce-warehouse-transactions'); ?></th>
             <th></th>
         </tr>
@@ -23,10 +24,11 @@ function wwt_stock_whitepanel_content($post) {
             ?>
             <tr>
                 <td><?php echo $name; ?></td>
+                <td><input type="number" id="product-quantity-<?php echo $productId; ?>" value="<?php echo $quantity; ?>"
+                           min="1" max="<?php echo $quantity; ?>"></td>
                 <td><?php echo $quantity; ?></td>
                 <td><input data-order-id="<?php echo $postId; ?>"
                            data-product-id="<?php echo $productId; ?>"
-                           data-quantity="<?php echo $quantity; ?>"
                            class="stock-in-and-out"
                            type="button"
                            value="<?php _e('Stock In and Out', 'woocommerce-warehouse-transactions'); ?>"></td>
@@ -43,7 +45,7 @@ function wwt_stock_whitepanel_content($post) {
             
             var orderId = buttonReference.data("order-id");
             var productId = buttonReference.data("product-id");
-            var quantity = buttonReference.data("quantity");
+            var quantity = jQuery("#product-quantity-" + productId).val();
 
             console.log(orderId);
             console.log(productId);
@@ -53,6 +55,7 @@ function wwt_stock_whitepanel_content($post) {
                 'action': 'wwt_perform_stock_up_and_down',
                 'quantity': quantity,
                 'productId': productId,
+                'orderId': orderId,
             };
             // since 2.8 ajaxurl is always defined in the admin header and points to admin-ajax.php
             jQuery.post(ajaxurl, data, function(response) {
