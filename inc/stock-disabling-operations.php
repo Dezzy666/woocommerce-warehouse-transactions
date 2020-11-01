@@ -1,5 +1,7 @@
 <?php
 
+define('SKIP_STOCK_OPERATIONS', 'wwt_skip_stock_operations');
+
 function wwt_stock_whitepanel_content($post) {
     $postId = $post->ID;
     $order = wc_get_order($postId);
@@ -96,3 +98,45 @@ function wwt_perform_stock_up_and_down() {
     wp_die(); // this is required to terminate immediately and return a proper response
 }
 add_action( 'wp_ajax_wwt_perform_stock_up_and_down', 'wwt_perform_stock_up_and_down' );
+
+function wwt_check_client_id($status, $order) {
+    $userId = $order->get_user_id();
+
+    if ($userId == 0) {
+        return $status;
+    } else {
+        $skipStockManagementFlag = get_user_meta($userId, SKIP_STOCK_OPERATIONS, true);
+
+        if ($skipStockManagementFlag == "1") {
+            $order->add_order_note(__('User is set to skip stock changes. No main warehouse changes.', 'medinatur_v3'));
+            return false;
+        }
+    }
+
+    return $status;
+}
+add_filter('woocommerce_can_reduce_order_stock', 'wwt_check_client_id', 10, 2);
+add_filter('woocommerce_can_restore_order_stock', 'wwt_check_client_id', 10, 2);
+
+function wwt_extra_profile_fields($user) {
+    ?>
+    <div>
+        <h3><?php _e('WWT', 'woocommerce-warehouse-transactions'); ?></h3>
+        <?php $value = get_user_meta( $user->ID, SKIP_STOCK_OPERATIONS, true ) === "1" ? "checked" : "" ; ?>
+        <input type="checkbox" name="<?php echo SKIP_STOCK_OPERATIONS ?>" id="<?php echo SKIP_STOCK_OPERATIONS ?>" value="1" <?php echo $value; ?>/>
+        <label for="<?php echo SKIP_STOCK_OPERATIONS ?>"><?php _e('Skip stock operations for this user', 'woocommerce-warehouse-transactions'); ?></label>
+    </div>
+    <?php
+}
+add_action( 'show_user_profile', 'wwt_extra_profile_fields' );
+add_action( 'edit_user_profile', 'wwt_extra_profile_fields' );
+
+function save_wwt_extra_profile_fields_with_check($userId) {
+    if ( !current_user_can( 'edit_user', $userId ) ) {
+        return false;
+    }
+
+    update_usermeta($userId, SKIP_STOCK_OPERATIONS, $_POST[SKIP_STOCK_OPERATIONS]);
+}
+add_action( 'personal_options_update', 'save_wwt_extra_profile_fields_with_check' );
+add_action( 'edit_user_profile_update', 'save_wwt_extra_profile_fields_with_check' );
