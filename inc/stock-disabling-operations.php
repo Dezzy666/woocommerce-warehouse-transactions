@@ -74,16 +74,24 @@ function wwt_create_stock_records_whitepanel() {
 add_action('add_meta_boxes_shop_order', 'wwt_create_stock_records_whitepanel');
 
 function wwt_perform_stock_up_and_down() {
-    $productId = $_POST["productId"];
-    $quantity = $_POST["quantity"];
+    $productId = intval($_POST["productId"]);
+    $quantity = intval($_POST["quantity"]);
+    $orderId = intval($_POST["orderId"]);
+
+    $order = wc_get_order($orderId);
+    $product = wc_get_product($productId);
+
     $userId = get_current_user_id();
     $note = __("Flip flop operation", 'woocommerce-warehouse-transactions');
+    $orderNote = sprintf(__("Flip flop operation with %s. Quantity %s", 'woocommerce-warehouse-transactions'), $product->get_name(), $quantity);
 
     $positiveLog = new WWT_LogEntity($userId, $productId, $quantity, $note);
     $positiveLog->save();
 
     $negativeLog = new WWT_LogEntity($userId, $productId, -$quantity, $note);
     $negativeLog->save();
+
+    $order->add_order_note($orderNote);
 
     wp_die(); // this is required to terminate immediately and return a proper response
 }
