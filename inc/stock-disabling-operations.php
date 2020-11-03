@@ -32,10 +32,12 @@ function wwt_stock_whitepanel_content($post) {
                            data-product-id="<?php echo $productId; ?>"
                            class="stock-in-and-out"
                            type="button"
+                           id="stock-in-and-out-<?php echo $productId; ?>"
                            value="<?php _e('Stock In and Out', 'woocommerce-warehouse-transactions'); ?>"></td>
                 <td><input data-order-id="<?php echo $postId; ?>"
                            data-product-id="<?php echo $productId; ?>"
                            class="stock-out-only"
+                           id="stock-out-only-<?php echo $productId; ?>"
                            type="button"
                            value="<?php _e('Stock Out', 'woocommerce-warehouse-transactions'); ?>"></td>
             </tr>
@@ -52,6 +54,9 @@ function wwt_stock_whitepanel_content($post) {
             var orderId = buttonReference.data("order-id");
             var productId = buttonReference.data("product-id");
             var quantity = jQuery("#product-quantity-" + productId).val();
+
+            var otherButton = jQuery("#stock-out-only-" + productId);
+            otherButton.attr("disabled", true);
 
             console.log(orderId);
             console.log(productId);
@@ -76,6 +81,9 @@ function wwt_stock_whitepanel_content($post) {
             var orderId = buttonReference.data("order-id");
             var productId = buttonReference.data("product-id");
             var quantity = jQuery("#product-quantity-" + productId).val();
+
+            var otherButton = jQuery("#stock-in-and-out-" + productId);
+            otherButton.attr("disabled", true);
 
             console.log(orderId);
             console.log(productId);
