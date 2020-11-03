@@ -1,9 +1,9 @@
 msgid ""
 msgstr ""
-"Project-Id-Version: Woocommerce Warehouse Transactions v2.4.0\n"
+"Project-Id-Version: Woocommerce Warehouse Transactions v2.5.0\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2019-10-29 10:41:16+0000\n"
+"PO-Revision-Date: 2020-11-03 23:55:14+0000\n"
 "Last-Translator: dezzy <dezzy@seznam.cz>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -21,6 +21,7 @@ msgstr ""
 "X-Textdomain-Support: yes"
 
 #: admin/admin-menu-setup.php:20
+#: inc/stock-disabling-operations.php:185
 #@ woocommerce-warehouse-transactions
 msgid "WWT"
 msgstr ""
@@ -30,7 +31,7 @@ msgstr ""
 msgid "Warehouse"
 msgstr "Sklad"
 
-#: woocommerce-warehouse-transactions.php:265
+#: woocommerce-warehouse-transactions.php:267
 #@ woocommerce-warehouse-transactions
 msgid "Order change"
 msgstr "Změna objednávkou"
@@ -48,8 +49,9 @@ msgid "Insert change"
 msgstr "Vložit změnu"
 
 #: admin/admin-page-templates.php:5
-#: admin/stock-overview.php:56
-#: admin/stock-overview.php:74
+#: admin/stock-overview.php:19
+#: admin/stock-overview.php:37
+#: inc/stock-disabling-operations.php:14
 #@ woocommerce-warehouse-transactions
 msgid "Quantity"
 msgstr "Množství"
@@ -85,8 +87,9 @@ msgstr "Nedávné změny"
 #: admin/main-page.php:36
 #: admin/material-log.php:45
 #: admin/recepies-overview.php:11
-#: admin/stock-overview.php:55
-#: admin/stock-overview.php:73
+#: admin/stock-overview.php:18
+#: admin/stock-overview.php:36
+#: inc/stock-disabling-operations.php:12
 #@ woocommerce-warehouse-transactions
 msgid "Product name"
 msgstr "Název produktu"
@@ -219,7 +222,7 @@ msgstr ""
 msgid "There is no changelog available."
 msgstr ""
 
-#: woocommerce-warehouse-transactions.php:230
+#: woocommerce-warehouse-transactions.php:232
 #, php-format
 #@ woocommerce-warehouse-transactions
 msgid "Cron for WWT successfully inserted. Next execution day is %s"
@@ -288,7 +291,7 @@ msgid "Needed volume"
 msgstr "Potřebné množství"
 
 #: admin/admin-menu-setup.php:24
-#: admin/stock-overview.php:47
+#: admin/stock-overview.php:10
 #@ woocommerce-warehouse-transactions
 msgid "Stock overview"
 msgstr "Přehled skladu"
@@ -308,25 +311,25 @@ msgstr "Naskenujte kód"
 msgid "Code not recognized"
 msgstr "Čárový kód nebyl nalezen"
 
-#: admin/stock-overview.php:54
-#: admin/stock-overview.php:72
+#: admin/stock-overview.php:17
+#: admin/stock-overview.php:35
 #@ woocommerce-warehouse-transactions
 msgid "Product Id"
 msgstr "ID produktu"
 
-#: admin/stock-overview.php:87
+#: admin/stock-overview.php:50
 #@ woocommerce-warehouse-transactions
 msgid "Orders which were not sent"
 msgstr "Objednávky, které ještě nebyly odeslány"
 
-#: admin/stock-overview.php:90
-#: admin/stock-overview.php:110
+#: admin/stock-overview.php:53
+#: admin/stock-overview.php:73
 #@ woocommerce-warehouse-transactions
 msgid "Order Id"
 msgstr "Číslo objednávky"
 
-#: admin/stock-overview.php:91
-#: admin/stock-overview.php:111
+#: admin/stock-overview.php:54
+#: admin/stock-overview.php:74
 #@ woocommerce-warehouse-transactions
 msgid "Order state"
 msgstr "Stav objednávky"
@@ -342,21 +345,21 @@ msgstr ""
 msgid "Find"
 msgstr "Hledat"
 
-#: woocommerce-warehouse-transactions.php:289
-#: woocommerce-warehouse-transactions.php:354
+#: woocommerce-warehouse-transactions.php:291
+#: woocommerce-warehouse-transactions.php:356
 #, php-format
 #@ woocommerce-warehouse-transactions
 msgid "Amout reduced because of change in order %d."
 msgstr "Zboží odebráno jako následek objednávky %d."
 
-#: woocommerce-warehouse-transactions.php:310
-#: woocommerce-warehouse-transactions.php:388
+#: woocommerce-warehouse-transactions.php:312
+#: woocommerce-warehouse-transactions.php:390
 #, php-format
 #@ woocommerce-warehouse-transactions
 msgid "Amout restored because of change in order %d."
 msgstr "Zboží přidáno následkem změny v objednávce %d."
 
-#: woocommerce-warehouse-transactions.php:319
+#: woocommerce-warehouse-transactions.php:321
 #, php-format
 #@ woocommerce-warehouse-transactions
 msgid "Amout changed because of order %d was refunded"
@@ -387,28 +390,28 @@ msgstr "Pohyby zboží v konsignačních skladech"
 msgid "Consignment name"
 msgstr "Název skladu"
 
-#: admin/stock-overview.php:51
+#: admin/stock-overview.php:14
 #@ woocommerce-warehouse-transactions
 msgid "Current physical stock state"
 msgstr "Aktuální stav skladu Na Florenci"
 
-#: admin/stock-overview.php:69
+#: admin/stock-overview.php:32
 #@ woocommerce-warehouse-transactions
 msgid "Current virtual stock state"
 msgstr "Aktuálně dostupné zboží"
 
-#: admin/stock-overview.php:105
+#: admin/stock-overview.php:68
 #@ woocommerce-warehouse-transactions
 msgid "Orders which are not sent but ignored"
 msgstr "Objednávky, které nejsou odeslané, ale nespadají pod hlavní sklad"
 
-#: admin/stock-overview.php:106
+#: admin/stock-overview.php:69
 #@ woocommerce-warehouse-transactions
 msgid "These orders are shipped from consignment stock"
 msgstr "Objednávky odeslány z konsignačního skladu"
 
-#: woocommerce-warehouse-transactions.php:343
-#: woocommerce-warehouse-transactions.php:377
+#: woocommerce-warehouse-transactions.php:345
+#: woocommerce-warehouse-transactions.php:379
 #, php-format
 #@ medinatur_v3
 msgid "Goods were taken from consignment stock [%s]. No main warehouse changes."
@@ -419,9 +422,68 @@ msgstr ""
 msgid "Take from main store"
 msgstr "Odebrat z hlavního skladu (Na Florenci)"
 
+#: inc/stock-disabling-operations.php:13
+#@ woocommerce-warehouse-transactions
+msgid "Total quantity"
+msgstr ""
+
+#: inc/stock-disabling-operations.php:37
+#@ woocommerce-warehouse-transactions
+msgid "Stock In and Out"
+msgstr "Vyskladnit a naskladnit"
+
+#: inc/stock-disabling-operations.php:43
+#@ woocommerce-warehouse-transactions
+msgid "Stock Out"
+msgstr "Vyskladnit"
+
+#: inc/stock-disabling-operations.php:111
+#@ woocommerce-warehouse-transactions
+msgid "Warehouse operations"
+msgstr "Skladové operace"
+
+#: inc/stock-disabling-operations.php:130
+#, php-format
+#@ woocommerce-warehouse-transactions
+msgid "Flip flop operation on order %s"
+msgstr "Vyskladnění a opětovné naskladnění na základě objednávky %s"
+
+#: inc/stock-disabling-operations.php:131
+#, php-format
+#@ woocommerce-warehouse-transactions
+msgid "Flip flop operation with %s. Quantity %s"
+msgstr "Vyskladnění a naskladnění produtku %s. Množství %s"
+
+#: inc/stock-disabling-operations.php:153
+#, php-format
+#@ woocommerce-warehouse-transactions
+msgid "Stock down operation on order %s"
+msgstr "Vyskladnění na základě objednávky %s"
+
+#: inc/stock-disabling-operations.php:154
+#, php-format
+#@ woocommerce-warehouse-transactions
+msgid "Stock down operation with %s. Quantity %s"
+msgstr "Vyskladnění produtku %s. Množství %s"
+
+#: inc/stock-disabling-operations.php:172
+#@ medinatur_v3
+msgid "User is set to skip stock changes. No main warehouse changes."
+msgstr ""
+
+#: inc/stock-disabling-operations.php:188
+#@ woocommerce-warehouse-transactions
+msgid "Skip stock operations for this user"
+msgstr "Neprovádět odečtění skladu pro tohoto uživatele"
+
 #. translators: plugin header field 'Version'
 #: woocommerce-warehouse-transactions.php:0
 #@ woocommerce-warehouse-transactions
-msgid "2.4.0"
+msgid "2.5.0"
+msgstr ""
+
+#: woocommerce-warehouse-transactions.php:275
+#@ woocommerce-warehouse-transactions
+msgid "Product has been removed"
 msgstr ""
 
