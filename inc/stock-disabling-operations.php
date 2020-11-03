@@ -18,13 +18,14 @@ function wwt_stock_whitepanel_content($post) {
         <?php
 
         foreach ($order->get_items() as $item_id => $item) {
-            $productId = $item->get_product_id();
+            $product = $item->get_product();
+            $productId = $product->get_id();
             $name = $item->get_name();
             $quantity = $item->get_quantity();
 
             ?>
             <tr>
-                <td><?php echo $name; ?></td>
+                <td><?php echo apply_filters('wwt_main_page_dropdown_option', $product->get_id() . ' ' . $product->get_name(), $product); ?></td>
                 <td><input type="number" id="product-quantity-<?php echo $productId; ?>" value="<?php echo $quantity; ?>"
                            min="1" max="<?php echo $quantity; ?>"></td>
                 <td><?php echo $quantity; ?></td>
@@ -123,10 +124,11 @@ function wwt_perform_stock_up_and_down() {
 
     $order = wc_get_order($orderId);
     $product = wc_get_product($productId);
+    $completeProductName = apply_filters('wwt_main_page_dropdown_option', $product->get_id() . ' ' . $product->get_name(), $product);
 
     $userId = get_current_user_id();
     $note = sprintf(__("Flip flop operation on order %s", 'woocommerce-warehouse-transactions'), $orderId);
-    $orderNote = sprintf(__("Flip flop operation with %s. Quantity %s", 'woocommerce-warehouse-transactions'), $product->get_name(), $quantity);
+    $orderNote = sprintf(__("Flip flop operation with %s. Quantity %s", 'woocommerce-warehouse-transactions'), $completeProductName, $quantity);
 
     $positiveLog = new WWT_LogEntity($userId, $productId, $quantity, $note);
     $positiveLog->save();
@@ -147,8 +149,9 @@ function wwt_perform_stock_down_only() {
 
     $order = wc_get_order($orderId);
     $product = wc_get_product($productId);
+    $completeProductName = apply_filters('wwt_main_page_dropdown_option', $product->get_id() . ' ' . $product->get_name(), $product);
     $note = sprintf(__("Stock down operation on order %s", 'woocommerce-warehouse-transactions'), $orderId);
-    $orderNote = sprintf(__("Stock down operation with %s. Quantity %s", 'woocommerce-warehouse-transactions'), $product->get_name(), $quantity);
+    $orderNote = sprintf(__("Stock down operation with %s. Quantity %s", 'woocommerce-warehouse-transactions'), $completeProductName, $quantity);
 
     wwt_save_stock_change($product, $productId, -$quantity, $note);
     $order->add_order_note($orderNote);
