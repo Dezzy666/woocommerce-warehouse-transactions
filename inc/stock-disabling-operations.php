@@ -87,7 +87,7 @@ function wwt_perform_stock_up_and_down() {
     $product = wc_get_product($productId);
 
     $userId = get_current_user_id();
-    $note = __("Flip flop operation", 'woocommerce-warehouse-transactions');
+    $note = sprintf(__("Flip flop operation on order %s", 'woocommerce-warehouse-transactions'), $orderId);
     $orderNote = sprintf(__("Flip flop operation with %s. Quantity %s", 'woocommerce-warehouse-transactions'), $product->get_name(), $quantity);
 
     $positiveLog = new WWT_LogEntity($userId, $productId, $quantity, $note);
