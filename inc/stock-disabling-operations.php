@@ -13,6 +13,7 @@ function wwt_stock_whitepanel_content($post) {
             <th><?php _e('Total quantity', 'woocommerce-warehouse-transactions'); ?></th>
             <th><?php _e('Quantity', 'woocommerce-warehouse-transactions'); ?></th>
             <th></th>
+            <th></th>
         </tr>
         <?php
 
@@ -32,6 +33,11 @@ function wwt_stock_whitepanel_content($post) {
                            class="stock-in-and-out"
                            type="button"
                            value="<?php _e('Stock In and Out', 'woocommerce-warehouse-transactions'); ?>"></td>
+                <td><input data-order-id="<?php echo $postId; ?>"
+                           data-product-id="<?php echo $productId; ?>"
+                           class="stock-out-only"
+                           type="button"
+                           value="<?php _e('Stock Out', 'woocommerce-warehouse-transactions'); ?>"></td>
             </tr>
             <?php
         }
@@ -53,6 +59,30 @@ function wwt_stock_whitepanel_content($post) {
 
             var data = {
                 'action': 'wwt_perform_stock_up_and_down',
+                'quantity': quantity,
+                'productId': productId,
+                'orderId': orderId,
+            };
+            // since 2.8 ajaxurl is always defined in the admin header and points to admin-ajax.php
+            jQuery.post(ajaxurl, data, function(response) {
+                buttonReference.css("background-color", '#32a852');
+            });
+        });
+
+        jQuery('.stock-out-only').click(function () {
+            var buttonReference = jQuery(this);
+            buttonReference.attr("disabled", true);
+
+            var orderId = buttonReference.data("order-id");
+            var productId = buttonReference.data("product-id");
+            var quantity = jQuery("#product-quantity-" + productId).val();
+
+            console.log(orderId);
+            console.log(productId);
+            console.log(quantity);
+
+            var data = {
+                'action': 'wwt_perform_stock_down_only',
                 'quantity': quantity,
                 'productId': productId,
                 'orderId': orderId,
@@ -101,6 +131,23 @@ function wwt_perform_stock_up_and_down() {
     wp_die(); // this is required to terminate immediately and return a proper response
 }
 add_action( 'wp_ajax_wwt_perform_stock_up_and_down', 'wwt_perform_stock_up_and_down' );
+
+function wwt_perform_stock_down_only() {
+    $productId = intval($_POST["productId"]);
+    $quantity = intval($_POST["quantity"]);
+    $orderId = intval($_POST["orderId"]);
+
+    $order = wc_get_order($orderId);
+    $product = wc_get_product($productId);
+    $note = sprintf(__("Stock down operation on order %s", 'woocommerce-warehouse-transactions'), $orderId);
+    $orderNote = sprintf(__("Stock down operation with %s. Quantity %s", 'woocommerce-warehouse-transactions'), $product->get_name(), $quantity);
+
+    wwt_save_stock_change($product, $productId, -$quantity, $note);
+    $order->add_order_note($orderNote);
+
+    wp_die(); // this is required to terminate immediately and return a proper response
+}
+add_action( 'wp_ajax_wwt_perform_stock_down_only', 'wwt_perform_stock_down_only' );
 
 function wwt_check_client_id($status, $order) {
     $userId = $order->get_user_id();
