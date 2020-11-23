@@ -21,7 +21,8 @@ $ignoredOrders = $calculatedData["ignoredOrders"];
 
 <?php
     foreach ($productData as $productId => $productSummary) {
-        echo '<tr><td>', $productId, '</td><td>', $productSummary->name, '</td><td>', $productSummary->qty, '</td></tr>';
+        $editLink = get_edit_post_link($productId, 'edit');
+        echo '<tr><td><a href="', $editLink,'">', $productId, '</a></td><td>', $productSummary->name, '</td><td>', $productSummary->qty, '</td></tr>';
     }
 ?>
 
@@ -39,7 +40,8 @@ $ignoredOrders = $calculatedData["ignoredOrders"];
 
 <?php
     foreach ($productData as $productId => $productSummary) {
-        echo '<tr><td>', $productId, '</td><td>', $productSummary->name, '</td><td>', $productSummary->initialQty, '</td></tr>';
+        $editLink = get_edit_post_link($productId, 'edit');
+        echo '<tr><td><a href="', $editLink,'">', $productId, '</a></td><td>', $productSummary->name, '</td><td>', $productSummary->initialQty, '</td></tr>';
     }
 ?>
 
@@ -56,7 +58,8 @@ $ignoredOrders = $calculatedData["ignoredOrders"];
 
 <?php
     foreach ($removedOrders as $orderId => $orderStatus) {
-        echo '<tr><td>', $orderId, '</td><td>', $orderStatus, '</td></tr>';
+        $editLink = get_edit_post_link($orderId, 'edit');
+        echo '<tr><td><a href="', $editLink,'">', $orderId, '</a></td><td>', $orderStatus, '</td></tr>';
     }
 ?>
 
@@ -76,7 +79,8 @@ $ignoredOrders = $calculatedData["ignoredOrders"];
 
 <?php
     foreach ($ignoredOrders as $orderId => $orderStatus) {
-        echo '<tr><td>', $orderId, '</td><td>', $orderStatus, '</td></tr>';
+        $editLink = get_edit_post_link($orderId, 'edit');
+        echo '<tr><td><a href="', $editLink,'">', $orderId, '</a></td><td>', $orderStatus, '</td></tr>';
     }
 ?>
 
