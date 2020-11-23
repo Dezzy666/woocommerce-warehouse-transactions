@@ -18,6 +18,7 @@ cd woocommerce-warehouse-transactions
 CALL :cloneFolder "admin"
 CALL :cloneFolder "cron"
 CALL :cloneFolder "images"
+CALL :cloneFolder "inc"
 CALL :cloneFolder "js"
 CALL :cloneFolder "languages"
 CALL :cloneFolder "libs"
